@@ -48,7 +48,6 @@ public class AddQuestionActivity extends AppCompatActivity {
                 case R.id.forth_option:
                     option = "4";
                     break;
-
             }
         });
         finish.setOnClickListener(view -> {
