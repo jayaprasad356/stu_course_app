@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.TestActivity">
+    tools:context=".Activities.StudentDashboardActivity">
+
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar_lay"
@@ -20,14 +21,6 @@
             android:orientation="horizontal"
             android:padding="14dp">
 
-            <ImageView
-                android:id="@+id/imgBack"
-                android:layout_width="25sp"
-                android:layout_height="25dp"
-                android:layout_gravity="center"
-                android:layout_marginStart="10dp"
-                android:background="@drawable/back_icon"
-                android:backgroundTint="@color/white"/>
 
             <TextView
                 android:id="@+id/tvTitle"
@@ -35,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginStart="10dp"
-                android:text="Add Test"
+                android:text="@string/app_name"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 
@@ -44,21 +37,27 @@
 
 
     <Button
-        android:layout_below="@+id/app_bar_lay"
-        android:id="@+id/add_test"
+        android:id="@+id/btnViewCource"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:layout_below="@+id/app_bar_lay"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:text="ADD TEST"
+        android:layout_marginLeft="10dp"
         android:backgroundTint="@color/primary_color"
-        />
+        android:text="View Enroll Course" />
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
-        android:layout_below="@+id/add_test"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_below="@+id/btnViewCource"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:visibility="visible"
+        tools:listitem="@layout/dashboard_list"
+        tools:visibility="visible" />
 
 </RelativeLayout>

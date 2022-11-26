@@ -1,4 +1,4 @@
-package com.greymatter.studentcourseapp;
+package com.greymatter.studentcourseapp.Model;
 public class Course {
     private String course, description, startDate, startTime, endDate, endTime;
 

@@ -1,4 +1,4 @@
-package com.greymatter.studentcourseapp;
+package com.greymatter.studentcourseapp.Adapter;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -7,12 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
+import com.greymatter.studentcourseapp.Model.Course;
+import com.greymatter.studentcourseapp.R;
+import com.greymatter.studentcourseapp.Activities.TestActivity;
 
 public class CoursesAdapter extends RecyclerView.Adapter<CoursesAdapter.ViewHolder> {
     Course[] courses;
@@ -38,10 +39,7 @@ public class CoursesAdapter extends RecyclerView.Adapter<CoursesAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.title.setText(courses[position].getCourse());
         holder.description.setText(courses[position].getDescription());
-        holder.startDate.setText(courses[position].getStartDate());
-        holder.startTime.setText(courses[position].getStartTime());
-        holder.endDate.setText(courses[position].getEndDate());
-        holder.endTime.setText(courses[position].getEndTime());
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

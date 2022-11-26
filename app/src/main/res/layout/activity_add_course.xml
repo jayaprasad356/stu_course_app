@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddCourseActivity">
+    tools:context=".Activities.AddCourseActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar_lay"
@@ -16,7 +16,7 @@
             android:id="@+id/l1"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@color/purple_500"
+            android:background="@color/primary_color"
             android:orientation="horizontal"
             android:padding="8dp">
 
@@ -26,7 +26,8 @@
                 android:layout_height="25dp"
                 android:layout_gravity="center"
                 android:layout_marginStart="10dp"
-                android:src="@drawable/back_icon" />
+                android:background="@drawable/back_icon"
+                android:backgroundTint="@color/white"/>
 
             <TextView
                 android:id="@+id/tvTitle"
@@ -42,22 +43,23 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout
+        android:layout_marginTop="20dp"
         android:id="@+id/ll_new_course"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/app_bar_lay"
         android:layout_gravity="center_horizontal"
-        android:layout_margin="10dp"
+        android:layout_marginHorizontal="20dp"
         android:background="@drawable/corner_edit"
-        android:backgroundTint="#5BB68B"
+        android:padding="10dp"
         android:orientation="vertical"
-        tools:visibility="visible">
+        >
 
         <EditText
             android:id="@+id/course_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Bsc"
+            android:hint="Title"
             android:paddingHorizontal="10dp" />
 
         <EditText
@@ -67,82 +69,6 @@
 android:paddingHorizontal="10dp"            android:layout_marginTop="10dp"
             android:hint="description" />
 
-        <LinearLayout
-            android:id="@+id/time_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/tv_start_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:layout_marginStart="1dp"
-                android:text="Start Date: " />
-
-            <EditText
-                android:id="@+id/start_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="15/12/1998"
-                android:inputType="date"
-                android:lines="1" />
-
-            <TextView
-                android:id="@+id/tv_end_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="42dp"
-                android:text="End Date: " />
-
-            <EditText
-                android:id="@+id/end_date"
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:hint="11:30"
-                android:inputType="time"
-                android:lines="1" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/tv_start_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="1dp"
-                android:text="Start Time: " />
-
-            <EditText
-                android:id="@+id/start_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="15/12/1998"
-                android:inputType="date"
-                android:lines="1" />
-
-            <TextView
-                android:id="@+id/tv_end_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="42dp"
-                android:text="End Time :" />
-
-            <EditText
-
-                android:id="@+id/end_time"
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:hint="11:30"
-                android:inputType="time"
-                android:lines="1" />
-        </LinearLayout>
 
         <Button
             android:id="@+id/add_detals"
@@ -150,8 +76,8 @@ android:paddingHorizontal="10dp"            android:layout_marginTop="10dp"
             android:layout_height="match_parent"
             android:layout_marginHorizontal="10dp"
             android:layout_marginTop="20dp"
-            android:backgroundTint="#0D4BEC"
-            android:text="@string/add_details" />
+            android:backgroundTint="@color/primary_color"
+            android:text="Add Codes" />
     </LinearLayout>
 
 </RelativeLayout>

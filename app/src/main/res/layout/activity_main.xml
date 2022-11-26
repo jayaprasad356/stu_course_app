@@ -4,13 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/back"
-    tools:context=".MainActivity">
+    tools:context=".Activities.MainActivity">
 
     <TextView
         android:id="@+id/tv_login"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="40dp"
         android:layout_marginTop="60dp"
         android:gravity="center"
@@ -21,26 +20,26 @@
     <EditText
         android:id="@+id/mobile_num"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/tv_login"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/corner_edit"
+        android:background="@drawable/border_etext"
         android:hint="Mobile"
         android:inputType="number"
-        android:padding="8dp" />
+        android:padding="14dp" />
 
     <EditText
         android:id="@+id/et_password"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/mobile_num"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/corner_edit"
+        android:background="@drawable/border_etext"
         android:hint="Password"
         android:inputType="numberPassword"
-        android:padding="8dp" />
+        android:padding="14dp" />
 
     <LinearLayout
         android:id="@+id/cb_layout"
@@ -81,10 +80,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/cb_layout"
-        android:background="@drawable/corner_edit"
-        android:backgroundTint="@color/teal_200"
         android:layout_marginHorizontal="50dp"
         android:layout_marginTop="25dp"
+        android:backgroundTint="@color/primary_color"
         android:text="@string/login" />
     <TextView
         android:layout_centerHorizontal="true"

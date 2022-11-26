@@ -1,15 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_marginTop="10dp"
-    android:paddingHorizontal="10dp"
-    android:background="@drawable/corner_edit"
-    android:backgroundTint="#D4CDDF"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginHorizontal="20dp"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    app:strokeWidth="1dp"
+    app:strokeColor="@color/primary_light">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="14dp"
+        >
+
+
     <TextView
+        android:textSize="18dp"
         android:id="@+id/title"
         android:text="@string/title"
+        android:textColor="@color/black"
         android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
@@ -20,7 +32,65 @@
         android:layout_marginVertical="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:id="@+id/time_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:layout_weight="2"
+            >
+
+
+
+            <TextView
+                android:layout_weight="1"
+                android:id="@+id/start_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="15/12/1998" />
+
+
+
+            <TextView
+                android:layout_weight="1"
+                android:id="@+id/end_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="11:30" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            >
+
+
+
+            <TextView
+                android:layout_weight="1"
+                android:id="@+id/start_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="15/12/1998" />
+
+
+            <TextView
+
+                android:layout_weight="1"
+                android:id="@+id/end_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="11:30" />
+        </LinearLayout>
+
     <TextView
+        android:layout_marginTop="10dp"
         android:id="@+id/no_of_question"
         android:layout_below="@+id/description"
         android:layout_width="wrap_content"
@@ -29,4 +99,9 @@
         android:layout_height="wrap_content"/>
 
 
-</RelativeLayout>
+
+    </LinearLayout>
+
+
+
+</com.google.android.material.card.MaterialCardView>

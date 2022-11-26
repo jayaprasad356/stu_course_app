@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddQuestionActivity">
+    tools:context=".Activities.AddQuestionActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar_lay"
@@ -16,9 +16,9 @@
             android:id="@+id/l1"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@color/purple_500"
+            android:background="@color/primary_color"
             android:orientation="horizontal"
-            android:padding="8dp">
+            android:padding="14dp">
 
             <ImageView
                 android:id="@+id/imgBack"
@@ -26,7 +26,8 @@
                 android:layout_height="25dp"
                 android:layout_gravity="center"
                 android:layout_marginStart="10dp"
-                android:src="@drawable/back_icon" />
+                android:background="@drawable/back_icon"
+                android:backgroundTint="@color/white"/>
 
             <TextView
                 android:id="@+id/tvTitle"
@@ -44,13 +45,13 @@
     <EditText
         android:id="@+id/question"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/app_bar_lay"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="20dp"
-        android:padding="8dp"
         android:background="@drawable/border_etext"
-        android:hint="Question" />
+        android:hint="Question"
+        android:padding="14dp" />
 
     <RadioGroup
         android:id="@+id/radioGroup"
@@ -71,7 +72,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/border_etext"
             android:hint="@string/enter_your_option"
-            android:padding="8dp" />
+            android:padding="14dp" />
 
         <RadioButton
             android:id="@+id/sec_option"
@@ -85,7 +86,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/border_etext"
             android:hint="@string/enter_your_option"
-            android:padding="8dp" />
+            android:padding="14dp" />
 
         <RadioButton
             android:id="@+id/third_option"
@@ -99,7 +100,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/border_etext"
             android:hint="@string/enter_your_option"
-            android:padding="8dp" />
+            android:padding="14dp" />
 
         <RadioButton
             android:id="@+id/forth_option"
@@ -113,7 +114,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/border_etext"
             android:hint="@string/enter_your_option"
-            android:padding="8dp" />
+            android:padding="14dp" />
 
     </RadioGroup>
 
@@ -131,7 +132,9 @@
             android:layout_gravity="start"
             android:layout_marginHorizontal="20dp"
             android:layout_weight="1"
-            android:text="@string/finish" />
+            android:text="@string/finish"
+            android:backgroundTint="@color/primary_color"
+            />
 
         <Button
             android:id="@+id/nxt_question"
@@ -140,7 +143,9 @@
             android:layout_gravity="left"
             android:layout_marginHorizontal="20dp"
             android:layout_weight="1"
-            android:text="@string/next_question" />
+            android:text="@string/next_question"
+            android:backgroundTint="@color/primary_color"
+            />
     </LinearLayout>
 
 

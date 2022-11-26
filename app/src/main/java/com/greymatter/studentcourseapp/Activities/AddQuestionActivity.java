@@ -1,4 +1,4 @@
-package com.greymatter.studentcourseapp;
+package com.greymatter.studentcourseapp.Activities;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.Objects;
+import com.greymatter.studentcourseapp.R;
 
 public class AddQuestionActivity extends AppCompatActivity {
     Button nextQuestion, finish;
@@ -74,6 +74,5 @@ public class AddQuestionActivity extends AppCompatActivity {
 
         });
         imgback.setOnClickListener(view -> onBackPressed());
-        Objects.requireNonNull(getSupportActionBar()).hide();
     }
 }

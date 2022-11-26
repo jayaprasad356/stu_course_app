@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/back"
-    tools:context=".RegisterActivity">
+    tools:context=".Activities.RegisterActivity">
 
     <TextView
         android:id="@+id/tv_register"
@@ -21,11 +20,11 @@
     <EditText
         android:id="@+id/et_name"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/tv_register"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/corner_edit"
+        android:background="@drawable/border_etext"
         android:hint="Name"
         android:inputType="textPersonName"
         android:padding="10dp" />
@@ -33,11 +32,11 @@
     <EditText
         android:id="@+id/et_mobile"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/et_name"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/corner_edit"
+        android:background="@drawable/border_etext"
         android:hint="Mobile Number"
         android:inputType="number"
         android:padding="10dp" />
@@ -45,11 +44,11 @@
     <EditText
         android:id="@+id/et_email"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/et_mobile"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/corner_edit"
+        android:background="@drawable/border_etext"
         android:hint="Email"
         android:inputType="textEmailAddress"
         android:padding="10dp" />
@@ -57,11 +56,11 @@
     <EditText
         android:id="@+id/et_password"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/et_email"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/corner_edit"
+        android:background="@drawable/border_etext"
         android:hint="Password"
         android:inputType="numberPassword"
         android:padding="10dp" />
@@ -108,10 +107,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/cb_layout"
-        android:background="@drawable/corner_edit"
-        android:backgroundTint="@color/teal_200"
         android:layout_marginHorizontal="50dp"
         android:layout_marginTop="25dp"
+        android:backgroundTint="@color/primary_color"
         android:text="@string/register" />
 
 </RelativeLayout>

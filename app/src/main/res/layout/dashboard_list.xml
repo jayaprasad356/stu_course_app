@@ -37,6 +37,17 @@
 
 
 
+        <Button
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enroll Now"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/primary_color"
+            />
+
+
+
 
     </LinearLayout>
 

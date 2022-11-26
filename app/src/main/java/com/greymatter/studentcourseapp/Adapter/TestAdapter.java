@@ -1,17 +1,19 @@
 
-package com.greymatter.studentcourseapp;
+package com.greymatter.studentcourseapp.Adapter;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.greymatter.studentcourseapp.Activities.AddTestActivity;
+import com.greymatter.studentcourseapp.Model.Test;
+import com.greymatter.studentcourseapp.R;
 
 
 public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
@@ -39,6 +41,10 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
         holder.title.setText(tests[position].getTitle());
         holder.description.setText(tests[position].getDescription());
         holder.noOfQuestion.setText(tests[position].getNoOfQuestion());
+        holder.startDate.setText("Start Date: "+tests[position].getStartDate());
+        holder.startTime.setText("Start Time: " +tests[position].getStartTime());
+        holder.endDate.setText("End Date: "+tests[position].getEndDate());
+        holder.endTime.setText("End Time: "+tests[position].getEndTime());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -55,13 +61,17 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView title, description, noOfQuestion;
+        public TextView title, description, noOfQuestion,startDate, startTime, endDate, endTime;
 
         public ViewHolder(View itemView) {
             super(itemView);
             this.title = itemView.findViewById(R.id.title);
             this.description = itemView.findViewById(R.id.description);
             this.noOfQuestion = itemView.findViewById(R.id.no_of_question);
+            this.startDate = itemView.findViewById(R.id.start_date);
+            this.startTime = itemView.findViewById(R.id.start_time);
+            this.endDate = itemView.findViewById(R.id.end_date);
+            this.endTime = itemView.findViewById(R.id.end_time);
 
         }
     }

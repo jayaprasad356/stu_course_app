@@ -1,15 +1,15 @@
-package com.greymatter.studentcourseapp;
+package com.greymatter.studentcourseapp.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.TextView;
+
+import com.greymatter.studentcourseapp.R;
 
 public class RegisterActivity extends AppCompatActivity {
     EditText etName, etMobile, etEmail, etPassword;
