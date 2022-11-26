@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">Student Course App</string>
+    <string name="login">Login</string>
+    <string name="professor">Professor</string>
+    <string name="student">Student</string>
+    <string name="register">Register</string>
+    <string name="professor_home_screen">Professor Home Screen</string>
+    <string name="click_here_to_register">click here to Register.</string>
+    <string name="add_course">Add Course</string>
+    <string name="add_details">Add details</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="add_question">Add Question</string>
+    <string name="_20_question">20 Question</string>
+    <string name="option">option</string>
+    <string name="enter_your_option">enter your option</string>
+    <string name="finish">Finish</string>
+    <string name="next_question">Next Question</string>
 </resources>
