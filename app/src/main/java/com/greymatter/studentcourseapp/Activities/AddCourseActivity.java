@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.greymatter.studentcourseapp.Model.Course;
 import com.greymatter.studentcourseapp.R;
@@ -40,16 +41,22 @@ public class AddCourseActivity extends AppCompatActivity {
             }
         });
 
-        addDetails.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                course=etCourse.getText().toString();
-                description=etDesc.getText().toString();
+        addDetails.setOnClickListener(view->{
+            if (etCourse.getText().toString().isEmpty()){
+                Toast.makeText(this, "Enter Title", Toast.LENGTH_SHORT).show();
+            }else if (etDesc.getText().toString().isEmpty()){
+                Toast.makeText(this, "Enter description", Toast.LENGTH_SHORT).show();
+            }else {
+                course = etCourse.getText().toString();
+                description = etDesc.getText().toString();
 
                 Course[] courses = new Course[]{
-                        new Course(course,description,startDate,startTime,endDate,endTime)
-
+                        new Course(course, description, startDate, startTime, endDate, endTime)
                 };
+
+
+
+
 
 
             }

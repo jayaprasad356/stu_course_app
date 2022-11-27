@@ -1,5 +1,6 @@
 package com.greymatter.studentcourseapp.Activities;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.TimePickerDialog;
@@ -7,9 +8,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -26,6 +29,8 @@ public class AddTestActivity extends AppCompatActivity implements SlideDatePicke
     Button addQuestion;
     Activity activity;
     int hour, minute;
+    EditText etdisc;
+    EditText ettitle;
     TextView tvStartDate,tvEndDate,tvStartTime,tvEndtime;
     boolean startdate = false,enddate = false;
 
@@ -41,14 +46,24 @@ public class AddTestActivity extends AppCompatActivity implements SlideDatePicke
         tvEndtime = findViewById(R.id.tvEndtime);
         imgBack=findViewById(R.id.imgBack);
 
+        ettitle=findViewById(R.id.etTitlee);
+        etdisc=findViewById(R.id.tvDisc);
 
         addQuestion=findViewById(R.id.add_question);
         activity=AddTestActivity.this;
        
         imgBack.setOnClickListener(view -> onBackPressed());
         addQuestion.setOnClickListener(view -> {
-            Intent intent = new Intent(activity, AddQuestionActivity.class);
-            startActivity(intent);
+            if (ettitle.getText().toString().isEmpty()){
+                Toast.makeText(this, "Enter Title", Toast.LENGTH_SHORT).show();
+            }else if (etdisc.getText().toString().isEmpty()){
+                Toast.makeText(this, "Enter description", Toast.LENGTH_SHORT).show();
+
+            }else {
+                Intent intent = new Intent(activity, AddQuestionActivity.class);
+                startActivity(intent);
+            }
+
         });
 
 

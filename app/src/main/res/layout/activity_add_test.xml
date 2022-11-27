@@ -9,159 +9,153 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
 
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/app_bar_lay"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginBottom="20dp"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
-        <LinearLayout
-            android:id="@+id/l1"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar_lay"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@color/primary_color"
-            android:orientation="horizontal"
-            android:padding="8dp">
+            android:layout_marginBottom="20dp"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-            <ImageView
-                android:id="@+id/imgBack"
-                android:layout_width="25sp"
-                android:layout_height="25dp"
-                android:layout_gravity="center"
-                android:layout_marginStart="10dp"
-                android:background="@drawable/back_icon"
-                android:backgroundTint="@color/white"/>
-
-            <TextView
-                android:id="@+id/tvTitle"
+            <LinearLayout
+                android:id="@+id/l1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="10dp"
-                android:text="Add Test"
-                android:textColor="@color/white"
-                android:textSize="18dp" />
+                android:layout_height="50dp"
+                android:background="@color/primary_color"
+                android:orientation="horizontal"
+                android:padding="8dp">
 
-        </LinearLayout>
-    </com.google.android.material.appbar.AppBarLayout>
+                <ImageView
+                    android:id="@+id/imgBack"
+                    android:layout_width="25sp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/back_icon"
+                    android:backgroundTint="@color/white" />
+
+                <TextView
+                    android:id="@+id/tvtitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:text="Add Test"
+                    android:textColor="@color/white"
+                    android:textSize="18dp" />
+
+            </LinearLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+
 
         <EditText
-            android:id="@id/tvTitle"
+            android:id="@id/etTitlee"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/app_bar_lay"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/border_etext"
             android:hint="@string/title"
-            android:padding="16dp"
+            android:padding="16dp" />
+        <EditText
+            android:id="@+id/tvDisc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etTitlee"
             android:layout_marginHorizontal="10dp"
-             />
-
-    <EditText
-        android:layout_marginTop="20dp"
-        android:id="@id/description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvTitle"
-        android:background="@drawable/border_etext"
-        android:hint="@string/description"
-        android:padding="16dp"
-        android:layout_marginHorizontal="10dp"
-         />
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:layout_weight="2"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginHorizontal="10dp"
-
-        >
-
-
-        <TextView
-            android:id="@+id/tvStartDate"
-            android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Start Date"
-            android:padding="14dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/border_etext"
-            android:layout_marginRight="10dp"
-            android:drawableEnd="@drawable/ic_baseline_arrow_drop_down_24"
-            android:drawableTint="@color/black"
-            />
-
-
-        <TextView
-            android:id="@+id/tvEndDate"
-            android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="End Date"
-            android:padding="14dp"
-            android:background="@drawable/border_etext"
-            android:drawableEnd="@drawable/ic_baseline_arrow_drop_down_24"
-            android:drawableTint="@color/black"
-
-
-            />
-
-
-
-    </LinearLayout>
-
-
-
-
+            android:hint="@string/description"
+            android:padding="16dp" />
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:layout_weight="2"
+            android:layout_marginHorizontal="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:layout_marginHorizontal="10dp"
+            android:layout_weight="2"
+            android:orientation="horizontal"
+
             >
 
 
             <TextView
-                android:id="@+id/tvStartTime"
-                android:layout_weight="1"
+                android:id="@+id/tvStartDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Start Time"
-                android:background="@drawable/border_etext"
-                android:padding="14dp"
                 android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/border_etext"
                 android:drawableEnd="@drawable/ic_baseline_arrow_drop_down_24"
                 android:drawableTint="@color/black"
+                android:padding="14dp"
+                android:text="Start Date"
+                android:textIsSelectable="true" />
+
+
+            <TextView
+                android:id="@+id/tvEndDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/border_etext"
+                android:drawableEnd="@drawable/ic_baseline_arrow_drop_down_24"
+                android:drawableTint="@color/black"
+                android:padding="14dp"
+                android:text="End Date"
+                android:textIsSelectable="true"
+
+
                 />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="2"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/tvStartTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/border_etext"
+                android:drawableEnd="@drawable/ic_baseline_arrow_drop_down_24"
+                android:drawableTint="@color/black"
+                android:padding="14dp"
+                android:text="Start Time"
+                android:textIsSelectable="true" />
 
 
             <TextView
                 android:id="@+id/tvEndtime"
-                android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="End Time"
+                android:layout_weight="1"
                 android:background="@drawable/border_etext"
-                android:padding="14dp"
                 android:drawableEnd="@drawable/ic_baseline_arrow_drop_down_24"
                 android:drawableTint="@color/black"
+                android:padding="14dp"
+                android:text="End Time"
+                android:textIsSelectable="true"
 
 
                 />
-
 
 
         </LinearLayout>
@@ -174,9 +168,8 @@
             android:layout_below="@+id/description"
             android:layout_marginHorizontal="40dp"
             android:layout_marginTop="20dp"
-            android:text="Add Question"
             android:backgroundTint="@color/primary_color"
-            />
+            android:text="Add Question" />
 
 
     </LinearLayout>

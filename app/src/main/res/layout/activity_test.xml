@@ -30,7 +30,7 @@
                 android:backgroundTint="@color/white"/>
 
             <TextView
-                android:id="@+id/tvTitle"
+                android:id="@+id/etTitlee"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -55,10 +55,11 @@
         android:text="ADD TEST"
         android:backgroundTint="@color/primary_color"
         />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
-        android:layout_below="@+id/add_test"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_below="@+id/add_test" />
 
 </RelativeLayout>

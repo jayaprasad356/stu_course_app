@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".Activities.RegisterActivity">
 
+    <ImageView
+        android:layout_width="35sp"
+        android:layout_height="35dp"
+        android:src="@drawable/backbtn"
+        android:id="@+id/backbtnn"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="2dp"
+        android:clickable="true"
+        android:focusable="true"/>
+
     <TextView
         android:id="@+id/tv_register"
         android:layout_width="match_parent"
@@ -26,6 +36,7 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/border_etext"
         android:hint="Name"
+
         android:inputType="textPersonName"
         android:padding="10dp" />
 
@@ -85,7 +96,7 @@
                 android:id="@+id/rb_student"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:checked="false"
+                android:checked="true"
                 android:text="@string/student"
                 android:textSize="20dp" />
 
