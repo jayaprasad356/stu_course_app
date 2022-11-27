@@ -3,6 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.greymatter.studentcourseapp">
 
+
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,6 +18,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.StudentCourseApp"
         tools:targetApi="31">
+
+
+
+
+
         <activity
             android:name=".ViewTestActivity"
             android:exported="false" />
@@ -73,6 +83,19 @@
         <activity
             android:name=".Activities.StudentDashboardActivity"
             android:exported="true" />
+
+
+        <service
+            android:name=".PushNotificationService"
+            android:exported="false">
+            <intent-filter>
+                <action
+                    android:name="com.google.firebase.MESSAGING_EVENT">
+                </action>
+            </intent-filter>
+        </service>
+
+        
     </application>
 
 </manifest>
