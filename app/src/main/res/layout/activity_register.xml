@@ -123,4 +123,12 @@
         android:backgroundTint="@color/primary_color"
         android:text="@string/register" />
 
+
+    <ProgressBar
+        android:id="@+id/progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
 </RelativeLayout>
