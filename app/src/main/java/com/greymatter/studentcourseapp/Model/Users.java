@@ -2,47 +2,56 @@ package com.greymatter.studentcourseapp.Model;
 
 public class Users {
 
-    String Name, PhoneNumber, Email, Password;
+    String name, email, mobile, password,type;
 
     public Users() {
     }
 
-    public Users(String firstName, String lastName, String age, String userName) {
-        this.Name = firstName;
-        this.PhoneNumber = lastName;
-        this.Email = age;
-        this.Password = userName;
+    public Users(String name, String email, String mobile, String password, String type) {
+        this.name = name;
+        this.email = email;
+        this.mobile = mobile;
+        this.password = password;
+        this.type = type;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        this.Name = name;
-    }
-
-    public String getPhoneNumber() {
-        return PhoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.PhoneNumber = phoneNumber;
+        this.name = name;
     }
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 
     public void setEmail(String email) {
-        this.Email = email;
+        this.email = email;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
     public String getPassword() {
-        return Password;
+        return password;
     }
 
     public void setPassword(String password) {
-        this.Password = password;
+        this.password = password;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

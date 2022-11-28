@@ -20,14 +20,15 @@
             android:orientation="horizontal"
             android:padding="14dp">
 
-            <ImageView
-                android:id="@+id/imgBack"
-                android:layout_width="25sp"
-                android:layout_height="25dp"
+            <TextView
+                android:id="@+id/tvQuesNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginStart="10dp"
-                android:background="@drawable/back_icon"
-                android:backgroundTint="@color/white"/>
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:text="1"/>
 
             <TextView
                 android:id="@+id/etTitlee"
@@ -43,7 +44,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <EditText
-        android:id="@+id/question"
+        android:id="@+id/edQuestion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/app_bar_lay"
@@ -54,17 +55,18 @@
         android:padding="14dp" />
 
     <RadioGroup
+        android:layout_marginTop="30dp"
         android:id="@+id/radioGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/question"
+        android:layout_below="@+id/edQuestion"
         android:layout_marginHorizontal="20dp">
 
         <RadioButton
             android:id="@+id/first_option"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/option" />
+            android:text="option 1" />
 
         <EditText
             android:id="@+id/et_first"
@@ -78,7 +80,7 @@
             android:id="@+id/sec_option"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/option" />
+            android:text="option 2" />
 
         <EditText
             android:id="@+id/et_second"
@@ -92,7 +94,7 @@
             android:id="@+id/third_option"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/option" />
+            android:text="option 3" />
 
         <EditText
             android:id="@+id/et_third"
@@ -106,7 +108,7 @@
             android:id="@+id/forth_option"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/option" />
+            android:text="option 4" />
 
         <EditText
             android:id="@+id/et_four"
@@ -121,7 +123,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/radioGroup"
+        android:layout_alignParentBottom="true"
         android:layout_marginTop="20dp"
         android:orientation="horizontal">
 

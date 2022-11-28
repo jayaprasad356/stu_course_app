@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.FirebaseDatabase;
 import com.greymatter.studentcourseapp.Adapter.CoursesAdapter;
+import com.greymatter.studentcourseapp.Constant;
 import com.greymatter.studentcourseapp.Model.Course;
 import com.greymatter.studentcourseapp.R;
 
@@ -55,7 +56,7 @@ public class ProfessorActivity extends AppCompatActivity {
 
             FirebaseRecyclerOptions<Course> options
                     = new FirebaseRecyclerOptions.Builder<Course>()
-                    .setQuery(FirebaseDatabase.getInstance().getReference().child("AddCourse"), Course.class)
+                    .setQuery(FirebaseDatabase.getInstance().getReference().child(Constant.COURSES), Course.class)
                     .build();
             coursesAdapter = new CoursesAdapter(options, activity);
             recyclerView.setAdapter(coursesAdapter);

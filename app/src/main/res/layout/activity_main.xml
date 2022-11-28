@@ -18,7 +18,7 @@
         android:textSize="22sp" />
 
     <EditText
-        android:id="@+id/mobile_num"
+        android:id="@+id/edEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_login"
@@ -30,10 +30,10 @@
         android:padding="14dp" />
 
     <EditText
-        android:id="@+id/et_password"
+        android:id="@+id/edPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/mobile_num"
+        android:layout_below="@+id/edEmail"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/border_etext"
@@ -41,45 +41,13 @@
         android:inputType="numberPassword"
         android:padding="14dp" />
 
-    <LinearLayout
-        android:id="@+id/cb_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/et_password"
-        android:layout_marginHorizontal="20dp"
-        android:gravity="center_horizontal">
-        <RadioGroup
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:id="@+id/radioGroup">
-
-            <RadioButton
-                android:id="@+id/rb_student"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:text="@string/student"
-                android:textSize="20dp" />
-
-            <RadioButton
-                android:id="@+id/rb_professor"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:checked="false"
-                android:text="@string/professor"
-
-                android:textSize="20dp" />
-        </RadioGroup>
-
-    </LinearLayout>
 
 
     <Button
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/cb_layout"
+        android:layout_below="@+id/edPassword"
         android:layout_marginHorizontal="50dp"
         android:layout_marginTop="25dp"
         android:backgroundTint="@color/primary_color"

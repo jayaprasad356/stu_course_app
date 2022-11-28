@@ -17,19 +17,23 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.greymatter.studentcourseapp.Constant;
 import com.greymatter.studentcourseapp.Model.AddCourse;
 import com.greymatter.studentcourseapp.Model.Course;
 import com.greymatter.studentcourseapp.R;
+import com.greymatter.studentcourseapp.Session;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AddCourseActivity extends AppCompatActivity {
     Button addDetails;
     ImageView back;
     Activity activity;
-    EditText etCourse, etDesc, etStartDate, etEndDate, etStartTime, etEndTime;
-    String course,title,description,startDate,endDate,startTime,endTime;
-    FirebaseDatabase db;
-    DatabaseReference reference;
-    ProgressDialog dialog;
+    EditText etCourse, etDesc;
+    Session session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,33 +43,22 @@ public class AddCourseActivity extends AppCompatActivity {
         back = findViewById(R.id.imgBack);
         etCourse = findViewById(R.id.course_name);
         etDesc = findViewById(R.id.description);
-
         activity=AddCourseActivity.this;
-        dialog= new ProgressDialog(this);
-        dialog.setMessage("Please Wait...");
-        activity=AddCourseActivity.this;
+        session = new Session(activity);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(activity, ProfessorActivity.class);
-                startActivity(intent);
+                onBackPressed();
             }
         });
 
         addDetails.setOnClickListener(view->{
-            dialog.show();
             if (etCourse.getText().toString().isEmpty()){
-                dialog.dismiss();
-                Toast.makeText(this, "Enter Title", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Enter Course Name", Toast.LENGTH_SHORT).show();
             }else if (etDesc.getText().toString().isEmpty()){
-                dialog.dismiss();
-                Toast.makeText(this, "Enter description", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Enter Course Description", Toast.LENGTH_SHORT).show();
             }else {
-                course = etCourse.getText().toString();
-                description = etDesc.getText().toString();
-
-
-               savedata();
+                savedata();
 
 
 
@@ -75,30 +68,19 @@ public class AddCourseActivity extends AppCompatActivity {
     }
 
     private void savedata() {
-        title=etCourse.getText().toString();
-        description=etDesc.getText().toString();
 
-
-        if (!title.isEmpty() && !description.isEmpty()){
-
-            AddCourse users = new AddCourse(title,description);
-            db = FirebaseDatabase.getInstance();
-            reference = db.getReference("AddCourse");
-            reference.child(title).setValue(users).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-
-                    etCourse.setText("");
-                    etDesc.setText("");
-
-                    Toast.makeText(AddCourseActivity.this,"Successfuly Saved",Toast.LENGTH_SHORT).show();
-                    dialog.dismiss();
-                    Intent intent = new Intent(activity, ProfessorActivity.class);
-                    startActivity(intent);
-                }
-            });
-
-        }
+        String currentTime = System.currentTimeMillis()/1000 + "";
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(Constant.COURSES).child(currentTime);
+        Map<String, Object> map = new HashMap<>();
+        map.put(Constant.EMAIL, session.getData(Constant.EMAIL));
+        map.put(Constant.NAME, etCourse.getText().toString().trim());
+        map.put(Constant.DESCRIPTION, etDesc.getText().toString().trim());
+        map.put(Constant.COURSE_ID, currentTime);
+        databaseReference.updateChildren(map);
+        Toast.makeText(activity, "Course Added Successfully", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(activity,ProfessorActivity.class);
+        startActivity(intent);
+        finish();
     }
 
 }

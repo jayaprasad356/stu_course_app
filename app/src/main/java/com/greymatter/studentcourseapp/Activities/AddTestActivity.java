@@ -21,14 +21,18 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.greymatter.studentcourseapp.Constant;
 import com.greymatter.studentcourseapp.Model.AddTest;
 import com.greymatter.studentcourseapp.R;
+import com.greymatter.studentcourseapp.Session;
 import com.niwattep.materialslidedatepicker.SlideDatePickerDialog;
 import com.niwattep.materialslidedatepicker.SlideDatePickerDialogCallback;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 public class AddTestActivity extends AppCompatActivity implements SlideDatePickerDialogCallback {
     ImageView imgBack;
@@ -40,9 +44,7 @@ public class AddTestActivity extends AppCompatActivity implements SlideDatePicke
     TextView tvStartDate,tvEndDate,tvStartTime,tvEndtime;
     String title,description,starttime,endtime,startdatee,enddatee;
     boolean startdate = false,enddate = false;
-    FirebaseDatabase db;
-    DatabaseReference reference;
-    ProgressDialog dialog;
+    Session session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,25 +60,18 @@ public class AddTestActivity extends AppCompatActivity implements SlideDatePicke
 
         ettitle=findViewById(R.id.etTitlee);
         etdisc=findViewById(R.id.tvDisc);
-        dialog= new ProgressDialog(this);
-        dialog.setMessage("Please Wait...");
         addQuestion=findViewById(R.id.add_question);
         activity=AddTestActivity.this;
-       
+        session = new Session(activity);
         imgBack.setOnClickListener(view -> onBackPressed());
         addQuestion.setOnClickListener(view -> {
-            dialog.show();
             if (ettitle.getText().toString().isEmpty()){
                 Toast.makeText(this, "Enter Title", Toast.LENGTH_SHORT).show();
-                dialog.dismiss();
             }else if (etdisc.getText().toString().isEmpty()){
                 Toast.makeText(this, "Enter description", Toast.LENGTH_SHORT).show();
-                dialog.dismiss();
 
             }else {
                 savedata();
-                Intent intent = new Intent(activity, AddQuestionActivity.class);
-                startActivity(intent);
             }
 
         });
@@ -132,33 +127,32 @@ public class AddTestActivity extends AppCompatActivity implements SlideDatePicke
     }
 
     private void savedata() {
-        title=ettitle.getText().toString();
-        description=etdisc.getText().toString();
-        starttime=tvStartTime.getText().toString();
-        endtime=tvEndtime.getText().toString();
-        startdatee=tvStartDate.getText().toString();
-        enddatee=tvEndDate.getText().toString();
+        title=ettitle.getText().toString().trim();
+        description=etdisc.getText().toString().trim();
+        starttime=tvStartTime.getText().toString().trim();
+        endtime=tvEndtime.getText().toString().trim();
+        startdatee=tvStartDate.getText().toString().trim();
+        enddatee=tvEndDate.getText().toString().trim();
 
         if (!title.isEmpty() && !description.isEmpty() && !starttime.isEmpty() && !endtime.isEmpty()&& !startdatee.isEmpty() && !enddatee.isEmpty()){
 
-            AddTest users = new AddTest(title,description,starttime,endtime,startdatee,enddatee);
-            db = FirebaseDatabase.getInstance();
-            reference = db.getReference("AddnewTest");
-            reference.child(title).setValue(users).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-
-                    ettitle.setText("");
-                    etdisc.setText("");
-                    tvEndDate.setText("");
-                    tvEndtime.setText("");
-                    tvStartDate.setText("");
-                    tvStartTime.setText("");
-                    Toast.makeText(AddTestActivity.this,"Successfuly Saved",Toast.LENGTH_SHORT).show();
-                    dialog.dismiss();
-
-                }
-            });
+            String currentTime = System.currentTimeMillis()/1000 + "";
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(Constant.TESTS).child(currentTime);
+            Map<String, Object> map = new HashMap<>();
+            map.put(Constant.EMAIL, session.getData(Constant.EMAIL));
+            map.put(Constant.NAME, title);
+            map.put(Constant.DESCRIPTION, description);
+            map.put(Constant.COURSE_ID, session.getData(Constant.COURSE_ID));
+            map.put(Constant.TEST_ID, currentTime);
+            map.put(Constant.STARTDATE, startdatee);
+            map.put(Constant.STARTTIME, starttime);
+            map.put(Constant.ENDDATE, enddatee);
+            map.put(Constant.ENDTIME, endtime);
+            databaseReference.updateChildren(map);
+            Toast.makeText(activity, "Test Added Successfully", Toast.LENGTH_SHORT).show();
+            session.setData(Constant.TEST_ID,currentTime);
+            Intent intent = new Intent(activity,AddQuestionActivity.class);
+            startActivity(intent);
 
         }
     }

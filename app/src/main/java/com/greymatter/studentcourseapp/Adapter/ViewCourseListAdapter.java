@@ -13,13 +13,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.greymatter.studentcourseapp.Activities.AddQuestionActivity;
+import com.greymatter.studentcourseapp.Constant;
 import com.greymatter.studentcourseapp.Model.DashBoardList;
 import com.greymatter.studentcourseapp.Model.ViewCourseList;
 import com.greymatter.studentcourseapp.R;
+import com.greymatter.studentcourseapp.Session;
 
 
 public class ViewCourseListAdapter extends FirebaseRecyclerAdapter<ViewCourseList, ViewCourseListAdapter.ExploreItemHolder> {
     Activity activity;
+    Session session;
 
 
     public ViewCourseListAdapter(FirebaseRecyclerOptions<ViewCourseList> options, Activity activity) {
@@ -36,14 +39,17 @@ public class ViewCourseListAdapter extends FirebaseRecyclerAdapter<ViewCourseLis
 
     @Override
     protected void onBindViewHolder(@NonNull ExploreItemHolder holder, int position, @NonNull ViewCourseList model) {
+        session = new Session(activity);
 
         holder.course_name.setText(model.getFirstName());
         holder.description.setText(model.getLastName());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                session.setInt(Constant.QUESTION_COUNT,1);
                 Intent intent = new Intent(activity, AddQuestionActivity.class);
                 activity.startActivity(intent);
+
             }
         });
     }

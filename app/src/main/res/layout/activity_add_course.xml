@@ -77,7 +77,7 @@
             android:layout_marginHorizontal="10dp"
             android:layout_marginTop="20dp"
             android:backgroundTint="@color/primary_color"
-            android:text="Add Codes" />
+            android:text="Add Course" />
     </LinearLayout>
 
 </RelativeLayout>

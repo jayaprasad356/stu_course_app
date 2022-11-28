@@ -47,7 +47,7 @@ public class TestAdapter extends FirebaseRecyclerAdapter<Test, TestAdapter.ViewH
     protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull Test model) {
         holder.title.setText(model.getName());
         holder.description.setText(model.getDescription());
-        holder.noOfQuestion.setText(model.getNoOfQuestion());
+        //holder.noOfQuestion.setText(model.getNoOfQuestion());
         holder.startDate.setText("Start Date: " + model.getStartdate());
         holder.startTime.setText("Start Time: " + model.getStarttime());
         holder.endDate.setText("End Date: " + model.getEnddate());

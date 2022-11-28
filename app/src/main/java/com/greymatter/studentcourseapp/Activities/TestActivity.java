@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.FirebaseDatabase;
 import com.greymatter.studentcourseapp.Adapter.DashBoardListAdapter;
+import com.greymatter.studentcourseapp.Constant;
 import com.greymatter.studentcourseapp.Model.DashBoardList;
 import com.greymatter.studentcourseapp.Model.Test;
 import com.greymatter.studentcourseapp.R;
@@ -56,11 +57,6 @@ public class TestActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-
-//        Test[] tests = new Test[]{
-//                new Test("tamil","worlds first language","11","11/11/12","11:15","11/25/25","10:25"),
-//                new Test("English","Common Language","12","11/11/12","11:15","11/25/25","10:25")
-//        };
         addTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,7 +71,7 @@ public class TestActivity extends AppCompatActivity {
     private void loadTestCards() {
         FirebaseRecyclerOptions<Test> options
                 = new FirebaseRecyclerOptions.Builder<Test>()
-                .setQuery(FirebaseDatabase.getInstance().getReference().child("AddnewTest"), Test.class)
+                .setQuery(FirebaseDatabase.getInstance().getReference().child(Constant.TESTS), Test.class)
                 .build();
         testAdapter = new TestAdapter(options, activity);
         recyclerView.setAdapter(testAdapter);

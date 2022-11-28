@@ -48,10 +48,6 @@
 
             </LinearLayout>
         </com.google.android.material.appbar.AppBarLayout>
-
-
-
-
         <EditText
             android:id="@id/etTitlee"
             android:layout_width="match_parent"
@@ -59,7 +55,7 @@
             android:layout_marginHorizontal="10dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/border_etext"
-            android:hint="@string/title"
+            android:hint="Test Name"
             android:padding="16dp" />
         <EditText
             android:id="@+id/tvDisc"
