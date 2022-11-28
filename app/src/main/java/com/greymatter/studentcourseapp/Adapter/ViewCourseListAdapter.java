@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -46,7 +47,6 @@ public class ViewCourseListAdapter extends FirebaseRecyclerAdapter<ViewCourseLis
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                session.setInt(Constant.QUESTION_COUNT,1);
                 Intent intent = new Intent(activity, AddQuestionActivity.class);
                 activity.startActivity(intent);
 

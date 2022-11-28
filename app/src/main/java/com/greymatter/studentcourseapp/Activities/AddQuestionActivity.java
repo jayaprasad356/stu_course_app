@@ -114,12 +114,12 @@ public class AddQuestionActivity extends AppCompatActivity {
 
         if (!question.isEmpty() && !fq.isEmpty() && !sq.isEmpty() && !tq.isEmpty() && !forthq.isEmpty()){
             String currentTime = System.currentTimeMillis()/1000 + "";
-            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(Constant.QUESTIONS).child(session.getData(Constant.COURSE_ID)).child(session.getData(Constant.TEST_ID)).child(currentTime);
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(Constant.QUESTIONS).child(session.getData(Constant.COURSE_ID)).child(session.getData(Constant.TEST_ID)).child(session.getInt(Constant.QUESTION_COUNT)+"");
             Map<String, Object> map = new HashMap<>();
             map.put(Constant.EMAIL, session.getData(Constant.EMAIL));
             map.put(Constant.COURSE_ID, session.getData(Constant.COURSE_ID));
             map.put(Constant.TEST_ID, session.getData(Constant.TEST_ID));
-            map.put(Constant.QUESTION_ID, currentTime);
+            map.put(Constant.QUESTION_ID, session.getInt(Constant.QUESTION_COUNT));
             map.put(Constant.QUESTION, question);
             map.put(Constant.OPTION_1, fq);
             map.put(Constant.OPTION_2, sq);
@@ -129,7 +129,7 @@ public class AddQuestionActivity extends AppCompatActivity {
             databaseReference.updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
-                    session.setInt(session.getData(Constant.QUESTION_COUNT),session.getInt(Constant.QUESTION_COUNT) + 1);
+                    session.setInt(Constant.QUESTION_COUNT,session.getInt(Constant.QUESTION_COUNT) + 1);
                     Toast.makeText(AddQuestionActivity.this,"Question Added",Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(activity, AddQuestionActivity.class);
                     startActivity(intent);

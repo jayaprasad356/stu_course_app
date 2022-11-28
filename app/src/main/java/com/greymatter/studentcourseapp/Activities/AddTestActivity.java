@@ -151,6 +151,7 @@ public class AddTestActivity extends AppCompatActivity implements SlideDatePicke
             databaseReference.updateChildren(map);
             Toast.makeText(activity, "Test Added Successfully", Toast.LENGTH_SHORT).show();
             session.setData(Constant.TEST_ID,currentTime);
+            session.setInt(Constant.QUESTION_COUNT,1);
             Intent intent = new Intent(activity,AddQuestionActivity.class);
             startActivity(intent);
 
