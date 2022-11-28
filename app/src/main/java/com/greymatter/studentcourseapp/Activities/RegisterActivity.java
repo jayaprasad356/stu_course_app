@@ -1,11 +1,15 @@
 package com.greymatter.studentcourseapp.Activities;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Trace;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,7 +19,11 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,7 +36,7 @@ public class RegisterActivity extends AppCompatActivity {
     EditText etName, etMobile, etEmail, etPassword;
     Button btnReg;
     ImageView backbtn;
-    RadioButton rbStudent,rbProfessor;
+    RadioButton rbStudent, rbProfessor;
     RadioGroup radioGroup;
     Activity activity;
     private ProgressBar progressbar;
@@ -38,16 +46,21 @@ public class RegisterActivity extends AppCompatActivity {
     Registerinfo registerinfo;
     String value;
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            currentUser.reload();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-
-
-
-
+        mAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
 
         databaseReference = firebaseDatabase.getReference("register");
@@ -55,23 +68,20 @@ public class RegisterActivity extends AppCompatActivity {
         registerinfo = new Registerinfo();
 
 
-
-
-
-
         etEmail = findViewById(R.id.et_email);
         etMobile = findViewById(R.id.et_mobile);
         etPassword = findViewById(R.id.et_password);
         etName = findViewById(R.id.et_name);
         btnReg = findViewById(R.id.btn_reg);
-        rbProfessor=findViewById(R.id.rb_professor);
-        rbStudent=findViewById(R.id.rb_student);
-        rbStudent=findViewById(R.id.rb_student);
-        radioGroup=findViewById(R.id.radioGroup);
-        backbtn=findViewById(R.id.backbtnn);
+        rbProfessor = findViewById(R.id.rb_professor);
+        rbStudent = findViewById(R.id.rb_student);
+        rbStudent = findViewById(R.id.rb_student);
+        radioGroup = findViewById(R.id.radioGroup);
+        backbtn = findViewById(R.id.backbtnn);
+        progressbar = findViewById(R.id.progressbar);
 
         RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
-       value = ((RadioButton)findViewById(radioGroup.getCheckedRadioButtonId())).getText().toString();
+        value = ((RadioButton) findViewById(radioGroup.getCheckedRadioButtonId())).getText().toString();
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -80,26 +90,24 @@ public class RegisterActivity extends AppCompatActivity {
         });
 
 
-        activity=RegisterActivity.this;
-        backbtn.setOnClickListener(view->{
-                Intent intent = new Intent(activity, MainActivity.class);
-        startActivity(intent);
+        activity = RegisterActivity.this;
+        backbtn.setOnClickListener(view -> {
+            Intent intent = new Intent(activity, MainActivity.class);
+            startActivity(intent);
         });
-        btnReg.setOnClickListener(view-> {
-            if (etName.getText().toString().isEmpty()){
+        btnReg.setOnClickListener(view -> {
+            if (etName.getText().toString().isEmpty()) {
                 Toast.makeText(this, "Enter your Name", Toast.LENGTH_SHORT).show();
-            }else if (etName.getText().toString().length() <4 ){
+            } else if (etName.getText().toString().length() < 4) {
                 Toast.makeText(this, "Enter full Name", Toast.LENGTH_SHORT).show();
 
-            } else if (etMobile.getText().toString().isEmpty()){
+            } else if (etMobile.getText().toString().isEmpty()) {
                 Toast.makeText(this, "Enter your Mobile Number", Toast.LENGTH_SHORT).show();
-            }else  if (etEmail.getText().toString().isEmpty()){
+            } else if (etEmail.getText().toString().isEmpty()) {
                 Toast.makeText(this, "Enter your Email", Toast.LENGTH_SHORT).show();
-            } else if (etPassword.getText().toString().isEmpty()){
+            } else if (etPassword.getText().toString().isEmpty()) {
                 Toast.makeText(this, "Enter your Password", Toast.LENGTH_SHORT).show();
-            }
-
-            else {
+            } else {
 
                 // getting text from our edittext fields.
                 String name = etName.getText().toString();
@@ -107,17 +115,45 @@ public class RegisterActivity extends AppCompatActivity {
                 String email = etEmail.getText().toString();
                 String password = etPassword.getText().toString();
                 String category = value;
+                createUserFirebase(email, password, name, phone, category);
 
-                addDatatoFirebase(name, phone, email,password,category);
+
             }
 
         });
 
     }
 
+    private void createUserFirebase(String email, String password, String name, String phone, String category) {
+        progressbar.setVisibility(View.VISIBLE);
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            progressbar.setVisibility(View.GONE);
+                            Toast.makeText(activity, "Authentication success.",
+                                    Toast.LENGTH_SHORT).show();
+                            addDatatoFirebase(name, phone, email, password, category);
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "createUserWithEmail:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+
+                        } else {
+                            progressbar.setVisibility(View.GONE);
+
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                            Toast.makeText(activity, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
+                });
+    }
 
 
-    private void addDatatoFirebase(String name, String phone, String email ,String password ,String category ) {
+    private void addDatatoFirebase(String name, String phone, String email, String password, String category) {
         // below 3 lines of code is used to set
         // data in our object class.
         registerinfo.setName(name);

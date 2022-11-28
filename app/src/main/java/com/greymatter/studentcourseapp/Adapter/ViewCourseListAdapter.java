@@ -10,37 +10,35 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.greymatter.studentcourseapp.Activities.AddQuestionActivity;
 import com.greymatter.studentcourseapp.Model.DashBoardList;
 import com.greymatter.studentcourseapp.Model.ViewCourseList;
 import com.greymatter.studentcourseapp.R;
 
-import java.util.ArrayList;
+
+public class ViewCourseListAdapter extends FirebaseRecyclerAdapter<ViewCourseList, ViewCourseListAdapter.ExploreItemHolder> {
+    Activity activity;
 
 
-public class ViewCourseListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    final Activity activity;
-    final ArrayList<ViewCourseList> viewCourseLists;
-
-    public ViewCourseListAdapter(Activity activity, ArrayList<ViewCourseList> viewCourseLists) {
+    public ViewCourseListAdapter(FirebaseRecyclerOptions<ViewCourseList> options, Activity activity) {
+        super(options);
         this.activity = activity;
-        this.viewCourseLists = viewCourseLists;
     }
+
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(activity).inflate(R.layout.course_details, parent, false);
+    public ExploreItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.course_details, parent, false);
         return new ExploreItemHolder(view);
     }
 
-
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holderParent, int position) {
-        final ExploreItemHolder holder = (ExploreItemHolder) holderParent;
-        final ViewCourseList viewCourseList = viewCourseLists.get(position);
+    protected void onBindViewHolder(@NonNull ExploreItemHolder holder, int position, @NonNull ViewCourseList model) {
 
-        holder.course_name.setText(viewCourseList.getCourse());
-        holder.description.setText(viewCourseList.getDescription());
+        holder.course_name.setText(model.getFirstName());
+        holder.description.setText(model.getLastName());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,17 +46,12 @@ public class ViewCourseListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 activity.startActivity(intent);
             }
         });
-
-    }
-
-    @Override
-    public int getItemCount() {
-        return viewCourseLists.size();
     }
 
     static class ExploreItemHolder extends RecyclerView.ViewHolder {
 
-        final TextView course_name,description;
+        final TextView course_name, description;
+
         public ExploreItemHolder(@NonNull View itemView) {
             super(itemView);
             course_name = itemView.findViewById(R.id.course_name);

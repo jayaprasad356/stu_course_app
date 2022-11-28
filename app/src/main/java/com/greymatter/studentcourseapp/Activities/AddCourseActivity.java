@@ -64,9 +64,6 @@ public class AddCourseActivity extends AppCompatActivity {
                 course = etCourse.getText().toString();
                 description = etDesc.getText().toString();
 
-                Course[] courses = new Course[]{
-                        new Course(course, description, startDate, startTime, endDate, endTime)
-                };
 
                savedata();
 

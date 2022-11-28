@@ -11,19 +11,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.greymatter.studentcourseapp.Activities.AddTestActivity;
 import com.greymatter.studentcourseapp.Model.Test;
 import com.greymatter.studentcourseapp.R;
 
 
-public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
-    Test[] tests;
+public class TestAdapter extends FirebaseRecyclerAdapter<Test, TestAdapter.ViewHolder> {
+
     Activity activity;
 
-    public TestAdapter(Test[] tests, Activity activity) {
-        this.tests = tests;
+    public TestAdapter(FirebaseRecyclerOptions<Test> options, Activity activity) {
+        super(options);
         this.activity = activity;
-
     }
 
     @NonNull
@@ -38,13 +39,19 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.title.setText(tests[position].getTitle());
-        holder.description.setText(tests[position].getDescription());
-        holder.noOfQuestion.setText(tests[position].getNoOfQuestion());
-        holder.startDate.setText("Start Date: "+tests[position].getStartDate());
-        holder.startTime.setText("Start Time: " +tests[position].getStartTime());
-        holder.endDate.setText("End Date: "+tests[position].getEndDate());
-        holder.endTime.setText("End Time: "+tests[position].getEndTime());
+
+
+    }
+
+    @Override
+    protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull Test model) {
+        holder.title.setText(model.getName());
+        holder.description.setText(model.getDescription());
+        holder.noOfQuestion.setText(model.getNoOfQuestion());
+        holder.startDate.setText("Start Date: " + model.getStartdate());
+        holder.startTime.setText("Start Time: " + model.getStarttime());
+        holder.endDate.setText("End Date: " + model.getEnddate());
+        holder.endTime.setText("End Time: " + model.getEndtime());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,16 +59,11 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                 activity.startActivity(intent);
             }
         });
-
     }
 
-    @Override
-    public int getItemCount() {
-        return tests.length;
-    }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView title, description, noOfQuestion,startDate, startTime, endDate, endTime;
+        public TextView title, description, noOfQuestion, startDate, startTime, endDate, endTime;
 
         public ViewHolder(View itemView) {
             super(itemView);

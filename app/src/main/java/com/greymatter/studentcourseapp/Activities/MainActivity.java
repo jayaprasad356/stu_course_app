@@ -19,10 +19,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.greymatter.studentcourseapp.R;
 
 public class MainActivity extends AppCompatActivity {
-    EditText etMobile, etPassword;
+    EditText etEmail, etPassword;
     Button btnLogin;
     Activity activity;
 
@@ -31,7 +32,14 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private ProgressBar progressbar;
 
-
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            //reload();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         rbProfessor = findViewById(R.id.rb_professor);
         rbStudent = findViewById(R.id.rb_student);
         gotoLogin = findViewById(R.id.go_register);
-        etMobile = findViewById(R.id.mobile_num);
+        etEmail = findViewById(R.id.mobile_num);
         etPassword = findViewById(R.id.et_password);
         progressbar = findViewById(R.id.progressbar);
         activity = MainActivity.this;
@@ -52,65 +60,53 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(activity, RegisterActivity.class);
             startActivity(intent);
         });
-        btnLogin.setOnClickListener(view->{
+        btnLogin.setOnClickListener(view -> {
 
-            if (etMobile.getText().toString().isEmpty()) {
-                Toast.makeText(this, "Enter Phone number", Toast.LENGTH_SHORT).show();
-            }else if (etMobile.getText().toString().length() != 10){
-                Toast.makeText(this, "Invalid number", Toast.LENGTH_SHORT).show();
-            }else if (etPassword.getText().toString().isEmpty()){
-                Toast.makeText(this, "Enter Your passwword", Toast.LENGTH_SHORT).show();
-            }else {
+//            if (etMobile.getText().toString().isEmpty()) {
+//                Toast.makeText(this, "Enter Phone number", Toast.LENGTH_SHORT).show();
+//            } else if (etMobile.getText().toString().length() != 10) {
+//                Toast.makeText(this, "Invalid number", Toast.LENGTH_SHORT).show();
+//            } else if (etPassword.getText().toString().isEmpty()) {
+//                Toast.makeText(this, "Enter Your passwword", Toast.LENGTH_SHORT).show();
+//            } else {
 
 
-                loginUserAccount();
+            loginUserAccount();
+            //loadProfessor();
 
 //                Intent intent = new Intent(activity, ProfessorActivity.class);
 //                startActivity(intent);
-            }
+            //}
 
 
-
-   });
+        });
 
     }
 
-    private void loginUserAccount()
-    {
+    private void loadProfessor() {
+        Intent intent = new Intent(activity, ProfessorActivity.class);
+
+        startActivity(intent);
+    }
+
+    private void loginUserAccount() {
 
         // show the visibility of progress bar to show loading
         progressbar.setVisibility(View.VISIBLE);
 
         // Take the value of two edit texts in Strings
-        String mobile, password;
-        mobile = etMobile.getText().toString();
+        String email, password;
+        email = etEmail.getText().toString();
         password = etPassword.getText().toString();
 
-        // validations for input email and password
-        if (TextUtils.isEmpty(mobile)) {
-            Toast.makeText(getApplicationContext(),
-                            "Please enter  Mobile no!",
-                            Toast.LENGTH_LONG)
-                    .show();
-            return;
-        }
-
-        if (TextUtils.isEmpty(password)) {
-            Toast.makeText(getApplicationContext(),
-                            "Please enter password!!",
-                            Toast.LENGTH_LONG)
-                    .show();
-            return;
-        }
 
         // signin existing user
-        mAuth.signInWithEmailAndPassword(mobile, password)
+        mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(
                         new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(
-                                    @NonNull Task<AuthResult> task)
-                            {
+                                    @NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(getApplicationContext(),
                                                     "Login successful!!",
@@ -126,9 +122,7 @@ public class MainActivity extends AppCompatActivity {
                                             = new Intent(MainActivity.this,
                                             StudentDashboardActivity.class);
                                     startActivity(intent);
-                                }
-
-                                else {
+                                } else {
 
                                     // sign-in failed
                                     Toast.makeText(getApplicationContext(),

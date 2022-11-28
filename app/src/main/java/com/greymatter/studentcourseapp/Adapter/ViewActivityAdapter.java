@@ -35,10 +35,10 @@ class ViewActivityAdapterextends extends RecyclerView.Adapter<TestAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull TestAdapter.ViewHolder holder, int position) {
-        holder.title.setText(tests[position].getTitle());
+        holder.title.setText(tests[position].getName());
         holder.description.setText(tests[position].getDescription());
-        holder.startDate.setText("Date: " + tests[position].getStartDate());
-        holder.startTime.setText("Time: " + tests[position].getStartTime());
+        holder.startDate.setText("Date: " + tests[position].getStartdate());
+        holder.startTime.setText("Time: " + tests[position].getStarttime());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

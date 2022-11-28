@@ -1,30 +1,30 @@
 package com.greymatter.studentcourseapp.Model;
 
 public class ViewCourseList {
-    private String course, description;
+    private String firstName, lastName;
 
     public ViewCourseList(){
 
     }
 
     public ViewCourseList(String course, String description) {
-        this.course = course;
-        this.description = description;
+        this.firstName = course;
+        this.lastName = description;
     }
 
-    public String getCourse() {
-        return course;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setCourse(String course) {
-        this.course = course;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getDescription() {
-        return description;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 }

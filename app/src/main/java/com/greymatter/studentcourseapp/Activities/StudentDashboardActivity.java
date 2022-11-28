@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.FirebaseDatabase;
 import com.greymatter.studentcourseapp.Adapter.DashBoardListAdapter;
 import com.greymatter.studentcourseapp.Model.DashBoardList;
 import com.greymatter.studentcourseapp.R;
@@ -21,6 +23,19 @@ public class StudentDashboardActivity extends AppCompatActivity {
     RecyclerView recycler_view;
     DashBoardListAdapter dashBoardListAdapter;
     Activity activity;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        dashBoardListAdapter.startListening();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        dashBoardListAdapter.startListening();
+    }
+
     Button btnViewCource;
 
     @Override
@@ -55,18 +70,23 @@ public class StudentDashboardActivity extends AppCompatActivity {
     }
 
     private void dashboarlist() {
-
-        ArrayList<DashBoardList> dashBoardLists = new ArrayList<>();
-        DashBoardList rings1 = new DashBoardList("tamil","worlds first language");
-        DashBoardList rings2 = new DashBoardList("English","Common Language");
-
-
-        dashBoardLists.add(rings1);
-        dashBoardLists.add(rings2);
+        FirebaseRecyclerOptions<DashBoardList> options
+                = new FirebaseRecyclerOptions.Builder<DashBoardList>()
+                .setQuery(FirebaseDatabase.getInstance().getReference().child("AddCourse"), DashBoardList.class)
+                .build();
 
 
+//        ArrayList<DashBoardList> dashBoardLists = new ArrayList<>();
+//        DashBoardList rings1 = new DashBoardList("tamil","worlds first language");
+//        DashBoardList rings2 = new DashBoardList("English","Common Language");
+//
+//
+//        dashBoardLists.add(rings1);
+//        dashBoardLists.add(rings2);
 
-        dashBoardListAdapter = new DashBoardListAdapter(activity,dashBoardLists);
+
+
+        dashBoardListAdapter = new DashBoardListAdapter(options);
         recycler_view.setAdapter(dashBoardListAdapter);
     }
 }

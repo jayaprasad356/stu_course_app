@@ -1,6 +1,5 @@
 package com.greymatter.studentcourseapp.Adapter;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -11,16 +10,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.greymatter.studentcourseapp.Activities.TestActivity;
 import com.greymatter.studentcourseapp.Model.Course;
 import com.greymatter.studentcourseapp.R;
-import com.greymatter.studentcourseapp.Activities.TestActivity;
 
-public class CoursesAdapter extends RecyclerView.Adapter<CoursesAdapter.ViewHolder> {
-    Course[] courses;
+public class CoursesAdapter extends FirebaseRecyclerAdapter<Course, CoursesAdapter.ViewHolder> {
     Activity activity;
 
-    public CoursesAdapter(Course[] courses, Activity activity) {
-        this.courses = courses;
+    public CoursesAdapter(FirebaseRecyclerOptions<Course> options, Activity activity) {
+        super(options);
         this.activity = activity;
 
     }
@@ -34,11 +34,10 @@ public class CoursesAdapter extends RecyclerView.Adapter<CoursesAdapter.ViewHold
 
     }
 
-
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        holder.title.setText(courses[position].getCourse());
-        holder.description.setText(courses[position].getDescription());
+    protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull Course model) {
+        holder.title.setText(model.getFirstName());
+        holder.description.setText(model.getLastName());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,12 +46,6 @@ public class CoursesAdapter extends RecyclerView.Adapter<CoursesAdapter.ViewHold
                 activity.startActivity(intent);
             }
         });
-
-    }
-
-    @Override
-    public int getItemCount() {
-        return courses.length;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

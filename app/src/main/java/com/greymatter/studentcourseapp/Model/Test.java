@@ -1,24 +1,15 @@
 package com.greymatter.studentcourseapp.Model;
 
 public class Test {
-    private String title, description, noOfQuestion ,startDate, startTime, endDate, endTime;
+    private String name, description, noOfQuestion , startdate, starttime, enddate, endtime;
 
-    public Test(String title, String description, String noOfQuestion, String startDate, String startTime, String endDate, String endTime) {
-        this.title = title;
-        this.description = description;
-        this.noOfQuestion = noOfQuestion;
-        this.startDate = startDate;
-        this.startTime = startTime;
-        this.endDate = endDate;
-        this.endTime = endTime;
+
+    public String getName() {
+        return name;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
@@ -37,35 +28,35 @@ public class Test {
         this.noOfQuestion = noOfQuestion;
     }
 
-    public String getStartDate() {
-        return startDate;
+    public String getStartdate() {
+        return startdate;
     }
 
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
+    public void setStartdate(String startdate) {
+        this.startdate = startdate;
     }
 
-    public String getStartTime() {
-        return startTime;
+    public String getStarttime() {
+        return starttime;
     }
 
-    public void setStartTime(String startTime) {
-        this.startTime = startTime;
+    public void setStarttime(String starttime) {
+        this.starttime = starttime;
     }
 
-    public String getEndDate() {
-        return endDate;
+    public String getEnddate() {
+        return enddate;
     }
 
-    public void setEndDate(String endDate) {
-        this.endDate = endDate;
+    public void setEnddate(String enddate) {
+        this.enddate = enddate;
     }
 
-    public String getEndTime() {
-        return endTime;
+    public String getEndtime() {
+        return endtime;
     }
 
-    public void setEndTime(String endTime) {
-        this.endTime = endTime;
+    public void setEndtime(String endtime) {
+        this.endtime = endtime;
     }
 }

@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.FirebaseDatabase;
 import com.greymatter.studentcourseapp.Adapter.DashBoardListAdapter;
 import com.greymatter.studentcourseapp.Adapter.ViewCourseListAdapter;
 import com.greymatter.studentcourseapp.Model.DashBoardList;
@@ -25,6 +27,18 @@ public class ViewCourseActivity extends AppCompatActivity {
     Activity activity;
     Button btnViewCource;
 
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        viewCourseListAdapter.startListening();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        viewCourseListAdapter.startListening();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,19 +62,23 @@ public class ViewCourseActivity extends AppCompatActivity {
     }
 
     private void courselist() {
+        FirebaseRecyclerOptions<ViewCourseList> options
+                = new FirebaseRecyclerOptions.Builder<ViewCourseList>()
+                .setQuery(FirebaseDatabase.getInstance().getReference().child("AddCourse"), ViewCourseList.class)
+                .build();
 
 
-        ArrayList<ViewCourseList> viewCourseLists = new ArrayList<>();
-        ViewCourseList rings1 = new ViewCourseList("tamil","worlds first language");
-        ViewCourseList rings2 = new ViewCourseList("English","Common Language");
+//        ArrayList<ViewCourseList> viewCourseLists = new ArrayList<>();
+//        ViewCourseList rings1 = new ViewCourseList("tamil","worlds first language");
+//        ViewCourseList rings2 = new ViewCourseList("English","Common Language");
+//
+//
+//        viewCourseLists.add(rings1);
+//        viewCourseLists.add(rings2);
 
 
-        viewCourseLists.add(rings1);
-        viewCourseLists.add(rings2);
 
-
-
-        viewCourseListAdapter = new ViewCourseListAdapter(activity,viewCourseLists);
+        viewCourseListAdapter = new ViewCourseListAdapter(options, activity);
         recycler_view.setAdapter(viewCourseListAdapter);
     }
 }
