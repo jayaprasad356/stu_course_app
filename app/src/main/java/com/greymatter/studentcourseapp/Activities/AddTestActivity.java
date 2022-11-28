@@ -1,8 +1,8 @@
 package com.greymatter.studentcourseapp.Activities;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,8 +14,14 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.greymatter.studentcourseapp.Model.AddTest;
 import com.greymatter.studentcourseapp.R;
 import com.niwattep.materialslidedatepicker.SlideDatePickerDialog;
 import com.niwattep.materialslidedatepicker.SlideDatePickerDialogCallback;
@@ -32,7 +38,11 @@ public class AddTestActivity extends AppCompatActivity implements SlideDatePicke
     EditText etdisc;
     EditText ettitle;
     TextView tvStartDate,tvEndDate,tvStartTime,tvEndtime;
+    String title,description,starttime,endtime,startdatee,enddatee;
     boolean startdate = false,enddate = false;
+    FirebaseDatabase db;
+    DatabaseReference reference;
+    ProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,18 +58,23 @@ public class AddTestActivity extends AppCompatActivity implements SlideDatePicke
 
         ettitle=findViewById(R.id.etTitlee);
         etdisc=findViewById(R.id.tvDisc);
-
+        dialog= new ProgressDialog(this);
+        dialog.setMessage("Please Wait...");
         addQuestion=findViewById(R.id.add_question);
         activity=AddTestActivity.this;
        
         imgBack.setOnClickListener(view -> onBackPressed());
         addQuestion.setOnClickListener(view -> {
+            dialog.show();
             if (ettitle.getText().toString().isEmpty()){
                 Toast.makeText(this, "Enter Title", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
             }else if (etdisc.getText().toString().isEmpty()){
                 Toast.makeText(this, "Enter description", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
 
             }else {
+                savedata();
                 Intent intent = new Intent(activity, AddQuestionActivity.class);
                 startActivity(intent);
             }
@@ -116,6 +131,37 @@ public class AddTestActivity extends AppCompatActivity implements SlideDatePicke
 
     }
 
+    private void savedata() {
+        title=ettitle.getText().toString();
+        description=etdisc.getText().toString();
+        starttime=tvStartTime.getText().toString();
+        endtime=tvEndtime.getText().toString();
+        startdatee=tvStartDate.getText().toString();
+        enddatee=tvEndDate.getText().toString();
+
+        if (!title.isEmpty() && !description.isEmpty() && !starttime.isEmpty() && !endtime.isEmpty()&& !startdatee.isEmpty() && !enddatee.isEmpty()){
+
+            AddTest users = new AddTest(title,description,starttime,endtime,startdatee,enddatee);
+            db = FirebaseDatabase.getInstance();
+            reference = db.getReference("AddnewTest");
+            reference.child(title).setValue(users).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+
+                    ettitle.setText("");
+                    etdisc.setText("");
+                    tvEndDate.setText("");
+                    tvEndtime.setText("");
+                    tvStartDate.setText("");
+                    tvStartTime.setText("");
+                    Toast.makeText(AddTestActivity.this,"Successfuly Saved",Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+
+                }
+            });
+
+        }
+    }
 
 
     private void popEndTimepicker() {

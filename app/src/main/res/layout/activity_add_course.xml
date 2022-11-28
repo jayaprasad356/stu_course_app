@@ -43,17 +43,16 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout
-        android:layout_marginTop="20dp"
         android:id="@+id/ll_new_course"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/app_bar_lay"
         android:layout_gravity="center_horizontal"
         android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/corner_edit"
-        android:padding="10dp"
         android:orientation="vertical"
-        >
+        android:padding="10dp">
 
         <EditText
             android:id="@+id/course_name"
@@ -66,8 +65,9 @@
             android:id="@+id/description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-android:paddingHorizontal="10dp"            android:layout_marginTop="10dp"
-            android:hint="description" />
+            android:layout_marginTop="10dp"
+            android:hint="description"
+            android:paddingHorizontal="10dp" />
 
 
         <Button
