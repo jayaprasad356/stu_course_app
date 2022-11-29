@@ -6,50 +6,41 @@
     android:layout_height="match_parent"
     tools:context=".Activities.ProfessorActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/app_bar_lay"
+    <RelativeLayout
+        android:id="@+id/l1"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
-        <LinearLayout
-            android:id="@+id/l1"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@color/primary_color"
-            android:orientation="horizontal"
-            android:padding="14dp">
+        android:background="@color/primary_color"
+        android:orientation="horizontal"
+        android:padding="14dp">
 
 
-            <TextView
-                android:id="@+id/etTitlee"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="10dp"
-                android:text="@string/app_name"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
+        <TextView
+            android:id="@+id/etTitlee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:text="@string/app_name"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
 
-        </LinearLayout>
-    </com.google.android.material.appbar.AppBarLayout>
+        <ImageView
+            android:id="@+id/imgMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/ic_3dots" />
 
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginHorizontal="40dp"
-        android:layout_marginTop="20dp"
-        android:gravity="center"
-        android:text="@string/professor_home_screen"
-        android:textSize="18dp" />
+    </RelativeLayout>
+
 
     <Button
         android:id="@+id/add_course"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/title"
+        android:layout_below="@+id/l1"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"

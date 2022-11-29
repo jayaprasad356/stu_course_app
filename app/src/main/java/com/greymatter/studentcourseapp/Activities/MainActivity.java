@@ -102,6 +102,9 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent);
                         finish();
 
+                    }else {
+                        Toast.makeText(activity, "Password Wrong", Toast.LENGTH_SHORT).show();
+
                     }
 
                 }else {

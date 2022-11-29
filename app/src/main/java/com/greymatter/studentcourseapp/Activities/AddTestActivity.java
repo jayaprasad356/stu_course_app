@@ -2,10 +2,10 @@ package com.greymatter.studentcourseapp.Activities;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,22 +14,21 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.greymatter.studentcourseapp.Constant;
-import com.greymatter.studentcourseapp.Model.AddTest;
 import com.greymatter.studentcourseapp.R;
 import com.greymatter.studentcourseapp.Session;
 import com.niwattep.materialslidedatepicker.SlideDatePickerDialog;
 import com.niwattep.materialslidedatepicker.SlideDatePickerDialogCallback;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -133,11 +132,9 @@ public class AddTestActivity extends AppCompatActivity implements SlideDatePicke
         endtime=tvEndtime.getText().toString().trim();
         startdatee=tvStartDate.getText().toString().trim();
         enddatee=tvEndDate.getText().toString().trim();
-
         if (!title.isEmpty() && !description.isEmpty() && !starttime.isEmpty() && !endtime.isEmpty()&& !startdatee.isEmpty() && !enddatee.isEmpty()){
-
             String currentTime = System.currentTimeMillis()/1000 + "";
-            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(Constant.TESTS).child(currentTime);
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(Constant.TESTS).child(session.getData(Constant.COURSE_ID)).child(currentTime);
             Map<String, Object> map = new HashMap<>();
             map.put(Constant.EMAIL, session.getData(Constant.EMAIL));
             map.put(Constant.NAME, title);
@@ -148,6 +145,8 @@ public class AddTestActivity extends AppCompatActivity implements SlideDatePicke
             map.put(Constant.STARTTIME, starttime);
             map.put(Constant.ENDDATE, enddatee);
             map.put(Constant.ENDTIME, endtime);
+            map.put(Constant.START_TIMESTAMP, convertTimestamp("dd-MM-yyyy hh:mm aa",startdatee + " "+starttime));
+            map.put(Constant.END_TIMESTAMP, convertTimestamp("dd-MM-yyyy hh:mm aa",enddatee + " "+endtime));
             databaseReference.updateChildren(map);
             Toast.makeText(activity, "Test Added Successfully", Toast.LENGTH_SHORT).show();
             session.setData(Constant.TEST_ID,currentTime);
@@ -156,6 +155,17 @@ public class AddTestActivity extends AppCompatActivity implements SlideDatePicke
             startActivity(intent);
 
         }
+    }
+
+    private String convertTimestamp(String format,String str_date) {
+        DateFormat formatter = new SimpleDateFormat(format);
+        Date date = null;
+        try {
+            date = (Date)formatter.parse(str_date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return (date.getTime()/1000) + "";
     }
 
 
@@ -170,9 +180,9 @@ public class AddTestActivity extends AppCompatActivity implements SlideDatePicke
                 minute = selectedMinute;
                 String AM_PM;
                 if (selectedHour>=0&&selectedHour<12){
-                    AM_PM=" AM";
+                    AM_PM="AM";
                 }else {
-                    AM_PM=" PM";
+                    AM_PM="PM";
                 }
                 // tvEndtime.setText ( selectedHour + ":" + minute+""+AM_PM );
                 tvEndtime.setText(String.format(Locale.getDefault(), "%02d:%02d %s", (hour == 12 || hour == 0) ? 12 : hour % 12, minute, AM_PM ));
@@ -196,9 +206,9 @@ public class AddTestActivity extends AppCompatActivity implements SlideDatePicke
                 minute = selectedMinute;
                 String AM_PM;
                 if (selectedHour>=0&&selectedHour<12){
-                    AM_PM=" AM";
+                    AM_PM="AM";
                 }else {
-                    AM_PM=" PM";
+                    AM_PM="PM";
                 }
                 // tvEndtime.setText ( selectedHour + ":" + minute+""+AM_PM );
                 tvStartTime.setText(String.format(Locale.getDefault(), "%02d:%02d %s", (hour == 12 || hour == 0) ? 12 : hour % 12, minute, AM_PM ));
@@ -218,7 +228,7 @@ public class AddTestActivity extends AppCompatActivity implements SlideDatePicke
 
     @Override
     public void onPositiveClick(int date, int month, int year, Calendar calendar) {
-        SimpleDateFormat format = new SimpleDateFormat(" dd EEE, MMM", Locale.getDefault());
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
         if (startdate){
             tvStartDate.setText(format.format(calendar.getTime()));
         }else {

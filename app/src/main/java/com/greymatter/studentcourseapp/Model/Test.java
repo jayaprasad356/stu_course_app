@@ -1,14 +1,15 @@
 package com.greymatter.studentcourseapp.Model;
 
 public class Test {
-    String course_id,name, description, noOfQuestion , startdate, starttime, enddate, endtime;
+    String test_id,course_id,name, description, noOfQuestion , startdate, starttime, enddate, endtime,start_timestamp,end_timestamp;
 
 
     public Test(){
 
     }
 
-    public Test(String course_id, String name, String description, String noOfQuestion, String startdate, String starttime, String enddate, String endtime) {
+    public Test(String test_id, String course_id, String name, String description, String noOfQuestion, String startdate, String starttime, String enddate, String endtime, String start_timestamp, String end_timestamp) {
+        this.test_id = test_id;
         this.course_id = course_id;
         this.name = name;
         this.description = description;
@@ -17,6 +18,16 @@ public class Test {
         this.starttime = starttime;
         this.enddate = enddate;
         this.endtime = endtime;
+        this.start_timestamp = start_timestamp;
+        this.end_timestamp = end_timestamp;
+    }
+
+    public String getTest_id() {
+        return test_id;
+    }
+
+    public void setTest_id(String test_id) {
+        this.test_id = test_id;
     }
 
     public String getCourse_id() {
@@ -81,5 +92,21 @@ public class Test {
 
     public void setEndtime(String endtime) {
         this.endtime = endtime;
+    }
+
+    public String getStart_timestamp() {
+        return start_timestamp;
+    }
+
+    public void setStart_timestamp(String start_timestamp) {
+        this.start_timestamp = start_timestamp;
+    }
+
+    public String getEnd_timestamp() {
+        return end_timestamp;
+    }
+
+    public void setEnd_timestamp(String end_timestamp) {
+        this.end_timestamp = end_timestamp;
     }
 }

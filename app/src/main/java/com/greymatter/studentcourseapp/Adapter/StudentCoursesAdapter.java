@@ -14,9 +14,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.greymatter.studentcourseapp.Activities.ProfessorActivity;
+import com.greymatter.studentcourseapp.Activities.StudentDashboardActivity;
 import com.greymatter.studentcourseapp.Activities.TestActivity;
 import com.greymatter.studentcourseapp.Constant;
 import com.greymatter.studentcourseapp.Model.Course;
@@ -51,12 +55,34 @@ public class StudentCoursesAdapter extends FirebaseRecyclerAdapter<Course, Stude
         holder.title.setText("Course Name : "+model.getName());
         holder.description.setText(model.getDescription());
 
-        holder.btnEnrollNow.setOnClickListener(new View.OnClickListener() {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(Constant.STUDENT_ENROLL_COURSES_ID).child(model.getCourse_id());
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onClick(View view) {
-               enrollCourse(model.getCourse_id(),model.getName(),model.getDescription());
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (!snapshot.exists()){
+                    holder.btnEnrollNow.setVisibility(View.VISIBLE);
+
+
+                    holder.btnEnrollNow.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            enrollCourse(model.getCourse_id(),model.getName(),model.getDescription());
+
+                        }
+                    });
+
+                }else {
+                    holder.btnEnrollNow.setVisibility(View.GONE);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
+
     }
 
 
@@ -71,10 +97,11 @@ public class StudentCoursesAdapter extends FirebaseRecyclerAdapter<Course, Stude
         map.put(Constant.NAME, name);
         map.put(Constant.DESCRIPTION, description);
         databaseReference.updateChildren(map);
+        DatabaseReference dR2 = FirebaseDatabase.getInstance().getReference().child(Constant.STUDENT_ENROLL_COURSES_ID).child(course_id);
+        dR2.updateChildren(map);
+        Intent intent = new Intent(activity, StudentDashboardActivity.class);
+        activity.startActivity(intent);
         Toast.makeText(activity, "Course  Enroll Successfully", Toast.LENGTH_SHORT).show();
-//        Intent intent = new Intent(activity, ProfessorActivity.class);
-//        activity.startActivity(intent);
-//        activity.finish();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

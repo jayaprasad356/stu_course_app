@@ -6,45 +6,35 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.FirebaseDatabase;
 import com.greymatter.studentcourseapp.Adapter.EnrolledCoursesAdapter;
+import com.greymatter.studentcourseapp.Adapter.ScoreAdapter;
 import com.greymatter.studentcourseapp.Constant;
 import com.greymatter.studentcourseapp.Model.Course;
+import com.greymatter.studentcourseapp.Model.Score;
 import com.greymatter.studentcourseapp.R;
+import com.greymatter.studentcourseapp.Session;
 
-public class EnrolledCourses extends AppCompatActivity {
-
-
+public class ViewScoreActivity extends AppCompatActivity {
     RecyclerView recycler_view;
-    EnrolledCoursesAdapter enrolledCoursesAdapter;
+    ScoreAdapter scoreAdapter;
     Activity activity;
-    Button btnViewCource;
     ImageView imgBack;
+    Session session;
 
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        enrolledCoursesAdapter.startListening();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        enrolledCoursesAdapter.stopListening();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_enrolled_course);
+        setContentView(R.layout.activity_view_score);
 
-
-        activity = EnrolledCourses.this;
+        activity = ViewScoreActivity.this;
+        session = new Session(activity);
 
 
 
@@ -53,24 +43,21 @@ public class EnrolledCourses extends AppCompatActivity {
 
 
         imgBack.setOnClickListener(v -> onBackPressed());
-
-
         recycler_view.setLayoutManager(new LinearLayoutManager(activity,LinearLayoutManager.VERTICAL,false));
 
 
-        courselist();
-
+        sourcelist();
 
     }
 
-    private void courselist() {
-        FirebaseRecyclerOptions<Course> options
-                = new FirebaseRecyclerOptions.Builder<Course>()
-                .setQuery(FirebaseDatabase.getInstance().getReference().child(Constant.STUDENT_ENROLL_COURSES), Course.class)
+    private void sourcelist() {
+        FirebaseRecyclerOptions<Score> options
+                = new FirebaseRecyclerOptions.Builder<Score>()
+                .setQuery(FirebaseDatabase.getInstance().getReference().child(Constant.SCORES).child(session.getData(Constant.COURSE_ID)).child(session.getData(Constant.TEST_ID)), Score.class)
                 .build();
-        enrolledCoursesAdapter = new EnrolledCoursesAdapter(options, activity);
-        recycler_view.setAdapter(enrolledCoursesAdapter);
-
+        scoreAdapter = new ScoreAdapter(options, activity);
+        recycler_view.setAdapter(scoreAdapter);
+        scoreAdapter.startListening();
 
 
 

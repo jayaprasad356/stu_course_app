@@ -17,6 +17,12 @@
         android:theme="@style/Theme.StudentCourseApp"
         tools:targetApi="31">
         <activity
+            android:name=".Activities.ViewScoreActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.QuestionViewActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activities.StudentTestActivity"
             android:exported="false" />
         <activity
@@ -36,10 +42,10 @@
             android:exported="false" />
         <activity
             android:name=".Activities.MainActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".Activities.AddQuestionActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".Activities.AddTestActivity"
             android:exported="false">

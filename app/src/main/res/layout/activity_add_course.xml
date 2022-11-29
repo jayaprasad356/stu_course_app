@@ -58,7 +58,7 @@
             android:id="@+id/course_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Title"
+            android:hint="Course Name"
             android:paddingHorizontal="10dp" />
 
         <EditText

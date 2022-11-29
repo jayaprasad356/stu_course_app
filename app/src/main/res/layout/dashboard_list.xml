@@ -25,7 +25,7 @@
         android:textSize="18dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Bsc" />
+        android:text="" />
 
     <TextView
         android:id="@+id/description"
@@ -33,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="best course to your feature" />
+        android:text="" />
 
 
 
@@ -43,6 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Enroll Now"
+            android:visibility="gone"
             android:layout_gravity="center"
             android:backgroundTint="@color/primary_color"
             />

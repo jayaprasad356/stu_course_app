@@ -73,6 +73,9 @@ public class AddQuestionActivity extends AppCompatActivity {
         });
 
         finish.setOnClickListener(view -> {
+            Intent intent = new Intent(activity,ProfessorActivity.class);
+            startActivity(intent);
+            finish();
 
         });
 
