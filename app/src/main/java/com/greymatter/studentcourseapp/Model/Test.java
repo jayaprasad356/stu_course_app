@@ -1,8 +1,31 @@
 package com.greymatter.studentcourseapp.Model;
 
 public class Test {
-    private String name, description, noOfQuestion , startdate, starttime, enddate, endtime;
+    String course_id,name, description, noOfQuestion , startdate, starttime, enddate, endtime;
 
+
+    public Test(){
+
+    }
+
+    public Test(String course_id, String name, String description, String noOfQuestion, String startdate, String starttime, String enddate, String endtime) {
+        this.course_id = course_id;
+        this.name = name;
+        this.description = description;
+        this.noOfQuestion = noOfQuestion;
+        this.startdate = startdate;
+        this.starttime = starttime;
+        this.enddate = enddate;
+        this.endtime = endtime;
+    }
+
+    public String getCourse_id() {
+        return course_id;
+    }
+
+    public void setCourse_id(String course_id) {
+        this.course_id = course_id;
+    }
 
     public String getName() {
         return name;

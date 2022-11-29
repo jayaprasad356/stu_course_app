@@ -16,6 +16,17 @@
         <entry key="..\:/Studio Projects/flutter/StudentCourseApp/app/src/main/res/layout/activity_test2.xml" value="0.17552083333333332" />
         <entry key="..\:/Studio Projects/flutter/StudentCourseApp/app/src/main/res/layout/activity_view_course.xml" value="0.17552083333333332" />
         <entry key="..\:/Studio Projects/flutter/StudentCourseApp/app/src/main/res/layout/course_details.xml" value="0.17552083333333332" />
+        <entry key="..\:/stu_course_app/app/src/main/res/layout/activity_add_course.xml" value="0.20416666666666666" />
+        <entry key="..\:/stu_course_app/app/src/main/res/layout/activity_enrolled_course.xml" value="0.20416666666666666" />
+        <entry key="..\:/stu_course_app/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
+        <entry key="..\:/stu_course_app/app/src/main/res/layout/activity_professor.xml" value="0.20416666666666666" />
+        <entry key="..\:/stu_course_app/app/src/main/res/layout/activity_student_dashboard.xml" value="0.20416666666666666" />
+        <entry key="..\:/stu_course_app/app/src/main/res/layout/activity_student_test.xml" value="0.20416666666666666" />
+        <entry key="..\:/stu_course_app/app/src/main/res/layout/activity_test.xml" value="0.20416666666666666" />
+        <entry key="..\:/stu_course_app/app/src/main/res/layout/course_details.xml" value="0.20416666666666666" />
+        <entry key="..\:/stu_course_app/app/src/main/res/layout/dashboard_list.xml" value="0.20102564102564102" />
+        <entry key="..\:/stu_course_app/app/src/main/res/layout/enrolled_course_details.xml" value="0.20416666666666666" />
+        <entry key="..\:/stu_course_app/app/src/main/res/layout/test_views.xml" value="0.20416666666666666" />
       </map>
     </option>
   </component>

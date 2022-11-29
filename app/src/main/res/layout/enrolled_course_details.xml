@@ -33,7 +33,15 @@
             android:textColor="@color/black" />
 
 
-
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/enrolled"
+            android:gravity="center"
+            android:textSize="16dp"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/primary_color"
+            />
 
 
     </LinearLayout>

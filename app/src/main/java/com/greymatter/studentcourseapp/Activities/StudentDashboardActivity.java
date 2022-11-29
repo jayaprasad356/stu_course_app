@@ -12,28 +12,27 @@ import android.widget.Button;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.FirebaseDatabase;
-import com.greymatter.studentcourseapp.Adapter.DashBoardListAdapter;
-import com.greymatter.studentcourseapp.Model.DashBoardList;
+import com.greymatter.studentcourseapp.Adapter.StudentCoursesAdapter;
+import com.greymatter.studentcourseapp.Constant;
+import com.greymatter.studentcourseapp.Model.Course;
 import com.greymatter.studentcourseapp.R;
-
-import java.util.ArrayList;
 
 public class StudentDashboardActivity extends AppCompatActivity {
 
     RecyclerView recycler_view;
-    DashBoardListAdapter dashBoardListAdapter;
+    StudentCoursesAdapter studentCoursesAdapter;
     Activity activity;
 
     @Override
     protected void onStart() {
         super.onStart();
-        dashBoardListAdapter.startListening();
+        studentCoursesAdapter.startListening();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        dashBoardListAdapter.startListening();
+        studentCoursesAdapter.startListening();
     }
 
     Button btnViewCource;
@@ -54,39 +53,39 @@ public class StudentDashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(activity,ViewCourseActivity.class);
+                Intent intent = new Intent(activity, EnrolledCourses.class);
                 startActivity(intent);
 
             }
         });
 
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity);
+        loadCourseDetails();
+        recycler_view.setLayoutManager(linearLayoutManager);
+
         recycler_view.setLayoutManager(new LinearLayoutManager(activity,LinearLayoutManager.VERTICAL,false));
         
         
-        dashboarlist();
+
 
 
 
     }
 
-    private void dashboarlist() {
-        FirebaseRecyclerOptions<DashBoardList> options
-                = new FirebaseRecyclerOptions.Builder<DashBoardList>()
-                .setQuery(FirebaseDatabase.getInstance().getReference().child("AddCourse"), DashBoardList.class)
+
+    private void loadCourseDetails() {
+
+        FirebaseRecyclerOptions<Course> options
+                = new FirebaseRecyclerOptions.Builder<Course>()
+                .setQuery(FirebaseDatabase.getInstance().getReference().child(Constant.COURSES), Course.class)
                 .build();
+        studentCoursesAdapter = new StudentCoursesAdapter(options, activity);
+        recycler_view.setAdapter(studentCoursesAdapter);
 
-
-//        ArrayList<DashBoardList> dashBoardLists = new ArrayList<>();
-//        DashBoardList rings1 = new DashBoardList("tamil","worlds first language");
-//        DashBoardList rings2 = new DashBoardList("English","Common Language");
-//
-//
-//        dashBoardLists.add(rings1);
-//        dashBoardLists.add(rings2);
-
-
-
-        dashBoardListAdapter = new DashBoardListAdapter(options);
-        recycler_view.setAdapter(dashBoardListAdapter);
     }
+
+
+
+
 }

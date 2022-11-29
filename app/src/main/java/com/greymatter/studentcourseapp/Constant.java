@@ -12,10 +12,12 @@ public class Constant {
     public static final String TYPE = "type";
     public static final String REGISTRATION = "registration";
     public static final String COURSES = "courses";
+    public static final String STUDENT_ENROLL_COURSES = "student_enroll_courses";
     public static final String QUESTIONS = "questions";
     public static final String QUESTION = "question";
     public static final String TESTS = "tests";
     public static final String COURSE_ID = "course_id";
+    public static final String COURSE_ENROLL_ID = "course_enroll_id";
     public static final String TEST_ID = "test_id";
     public static final String QUESTION_ID = "question_id";
     public static final String OPTION_1 = "option_1";

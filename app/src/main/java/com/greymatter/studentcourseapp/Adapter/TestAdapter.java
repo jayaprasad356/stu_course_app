@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -37,14 +38,11 @@ public class TestAdapter extends FirebaseRecyclerAdapter<Test, TestAdapter.ViewH
     }
 
 
-    @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-
-    }
 
     @Override
     protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull Test model) {
+
         holder.title.setText(model.getName());
         holder.description.setText(model.getDescription());
         //holder.noOfQuestion.setText(model.getNoOfQuestion());
