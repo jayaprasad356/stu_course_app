@@ -17,7 +17,14 @@
         android:theme="@style/Theme.StudentCourseApp"
         tools:targetApi="31">
         <activity
-            android:name=".EditQuestionActivity"
+            android:name=".Activities.UpCommingTestActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Activities.EditQuestionActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

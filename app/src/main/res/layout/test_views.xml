@@ -104,6 +104,15 @@
                 android:visibility="gone"
                 android:backgroundTint="#D32F2F"/>
             <Button
+                android:id="@+id/btnEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/btnDelete"
+                android:text="Edit"
+                android:layout_marginLeft="10dp"
+                android:visibility="gone"
+                android:backgroundTint="#D32F2F"/>
+            <Button
                 android:id="@+id/btnStart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

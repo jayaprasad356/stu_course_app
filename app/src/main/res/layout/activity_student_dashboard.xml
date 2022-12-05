@@ -40,10 +40,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/l1"
-        android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
         android:backgroundTint="@color/primary_color"
         android:text="View Enroll Course" />
+
+    <Button
+        android:id="@+id/upcomming_test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@+id/l1"
+        android:text="up comming Test"
+        android:visibility="gone"
+        android:layout_marginRight="10dp"
+        android:backgroundTint="@color/primary_color"
+        android:layout_alignParentEnd="true"
+        android:layout_toRightOf="@+id/btnViewCource" />
 
 
     <androidx.recyclerview.widget.RecyclerView

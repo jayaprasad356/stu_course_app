@@ -22,7 +22,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.greymatter.studentcourseapp.Activities.AddQuestionActivity;
 import com.greymatter.studentcourseapp.Activities.AddTestActivity;
+import com.greymatter.studentcourseapp.Activities.EditQuestionActivity;
 import com.greymatter.studentcourseapp.Activities.QuestionViewActivity;
 import com.greymatter.studentcourseapp.Activities.ViewScoreActivity;
 import com.greymatter.studentcourseapp.Constant;
@@ -72,6 +74,7 @@ public class TestAdapter extends FirebaseRecyclerAdapter<Test, TestAdapter.ViewH
         if (type.equals("professor")) {
             holder.btnDelete.setVisibility(View.VISIBLE);
             holder.btnScore.setVisibility(View.VISIBLE);
+            holder.btnEdit.setVisibility(View.VISIBLE);
         } else {
             String currentTime = System.currentTimeMillis() / 1000 + "";
             if (Long.parseLong(model.getStart_timestamp()) <= Long.parseLong(currentTime) && Long.parseLong(model.getEnd_timestamp()) >= Long.parseLong(currentTime)) {
@@ -129,12 +132,22 @@ public class TestAdapter extends FirebaseRecyclerAdapter<Test, TestAdapter.ViewH
 
             }
         });
+        holder.btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(activity, EditQuestionActivity.class);
+                session.setInt(Constant.QUESTION_COUNT, 1);
+                session.setData(Constant.TEST_ID, model.getTest_id());
+                session.setData(Constant.COURSE_ID, model.getCourse_id());
+                activity.startActivity(intent);
+            }
+        });
     }
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView title, description, noOfQuestion, startDate, startTime, endDate, endTime;
-        Button btnDelete, btnStart, btnScore;
+        Button btnDelete, btnStart, btnScore, btnEdit;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -148,6 +161,7 @@ public class TestAdapter extends FirebaseRecyclerAdapter<Test, TestAdapter.ViewH
             this.btnDelete = itemView.findViewById(R.id.btnDelete);
             this.btnStart = itemView.findViewById(R.id.btnStart);
             this.btnScore = itemView.findViewById(R.id.btnScore);
+            this.btnEdit = itemView.findViewById(R.id.btnEdit);
 
         }
     }

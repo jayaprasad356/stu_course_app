@@ -21,7 +21,7 @@ import com.greymatter.studentcourseapp.Model.Course;
 import com.greymatter.studentcourseapp.R;
 import com.greymatter.studentcourseapp.Session;
 
-public class StudentDashboardActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener{
+public class StudentDashboardActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
     RecyclerView recycler_view;
     StudentCoursesAdapter studentCoursesAdapter;
@@ -39,10 +39,11 @@ public class StudentDashboardActivity extends AppCompatActivity implements Popup
         studentCoursesAdapter.startListening();
     }
 
-    Button btnViewCource;
+    Button btnViewCource, upCommingTest;
     Session session;
 
     ImageView imgMenu;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,7 +73,7 @@ public class StudentDashboardActivity extends AppCompatActivity implements Popup
         loadCourseDetails();
         recycler_view.setLayoutManager(linearLayoutManager);
 
-        recycler_view.setLayoutManager(new LinearLayoutManager(activity,LinearLayoutManager.VERTICAL,false));
+        recycler_view.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));
         imgMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -81,19 +82,14 @@ public class StudentDashboardActivity extends AppCompatActivity implements Popup
         });
 
 
-
-
-
-
-
     }
-    public void showpopup(View v){
-        PopupMenu popup = new PopupMenu(this,v);
+
+    public void showpopup(View v) {
+        PopupMenu popup = new PopupMenu(this, v);
         popup.setOnMenuItemClickListener(this);
         popup.inflate(R.menu.popup_menu);
         popup.show();
     }
-
 
 
     private void loadCourseDetails() {
@@ -105,15 +101,14 @@ public class StudentDashboardActivity extends AppCompatActivity implements Popup
         recycler_view.setAdapter(studentCoursesAdapter);
 
     }
+
     @Override
     public boolean onMenuItemClick(MenuItem menuItem) {
-        if (menuItem.getItemId() == R.id.logoutitem){
+        if (menuItem.getItemId() == R.id.logoutitem) {
             session.logoutUser(activity);
         }
         return false;
     }
-
-
 
 
 }
