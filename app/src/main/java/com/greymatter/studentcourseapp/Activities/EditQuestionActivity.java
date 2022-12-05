@@ -12,6 +12,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,12 +37,14 @@ public class EditQuestionActivity extends AppCompatActivity {
     TextView firstOption, secOption, thirdOption, fourthOption, Ques;
     TextView tvQuesNo;
     RadioGroup radioGroup;
-    String option, correct_option;
-    String text, question, fq, sq, tq, forthq;
+    String option = "", correct_option;
+    String text;
     Activity activity;
     RadioButton r1,r2,r3,r4;
     ProgressDisplay progressDisplay;
     int score;
+    String question, fq, sq, tq, forthq;
+    Button finish;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,21 +61,39 @@ public class EditQuestionActivity extends AppCompatActivity {
         Ques = findViewById(R.id.edQuestion);
         fourthOption = findViewById(R.id.et_four);
         r1=findViewById(R.id.first_option);
+        r2=findViewById(R.id.sec_option);
+        r3=findViewById(R.id.third_option);
+        r4=findViewById(R.id.forth_option);
+        finish=findViewById(R.id.finish);
         activity = EditQuestionActivity.this;
         session = new Session(activity);
         progressDisplay = new ProgressDisplay(activity);
         progressDisplay.showProgress();
 
-//        btnFinish.setOnClickListener(view -> {
-//            Intent intent = new Intent(activity,StudentTestActivity.class);
-//            startActivity(intent);
-//            finish();
-//
-//        });
+
+        tvQuesNo.setText(session.getInt(Constant.QUESTION_COUNT) + "");
+
+        finish.setOnClickListener(view -> {
+            Intent intent = new Intent(activity, ProfessorActivity.class);
+            startActivity(intent);
+            finish();
+        });
         session = new Session(this);
         nextQuestion.setOnClickListener(view -> {
-            int selectedId = radioGroup.getCheckedRadioButtonId();
-            if (selectedId != -1) {
+            if (r1.isChecked()){
+                option = "1";
+
+            }else if (r2.isChecked()){
+                option = "2";
+
+            }else if (r3.isChecked()){
+                option = "3";
+
+            }else if (r4.isChecked()){
+                option = "4";
+
+            }
+            if (!option.equals("")) {
                 switch (option) {
                     case "1":
                         text = firstOption.getText().toString();
@@ -86,7 +108,7 @@ public class EditQuestionActivity extends AppCompatActivity {
                         text = fourthOption.getText().toString();
                         break;
                 }
-                next();
+                savedata();
             } else {
                 Toast.makeText(activity, "Please Select Option", Toast.LENGTH_SHORT).show();
             }
@@ -103,6 +125,15 @@ public class EditQuestionActivity extends AppCompatActivity {
                     assert question != null;
                     if (question.getCorrect_option().equals("1")){
                         r1.setChecked(true);
+                    }
+                    if (question.getCorrect_option().equals("2")){
+                        r2.setChecked(true);
+                    }
+                    if (question.getCorrect_option().equals("3")){
+                        r3.setChecked(true);
+                    }
+                    if (question.getCorrect_option().equals("4")){
+                        r4.setChecked(true);
                     }
                     correct_option = question.getCorrect_option();
                     Ques.setText(question.getQuestion());
@@ -121,65 +152,48 @@ public class EditQuestionActivity extends AppCompatActivity {
         });
         courseId = session.getData(Constant.COURSE_ID);
         testID = session.getData(Constant.TEST_ID);
-        //loadQuestions();
     }
 
-    private void loadQuestions() {
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(Constant.TESTS).child(courseId).child(testID);
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    Iterator<DataSnapshot> dataSnapshots = snapshot.getChildren().iterator();
-                    while (dataSnapshots.hasNext()) {
-                        DataSnapshot dataSnapshotChild = dataSnapshots.next();
-                        System.out.println(dataSnapshotChild);
-                    }
-                }
+    private void savedata() {
+        question = Ques.getText().toString();
+        fq = firstOption.getText().toString();
+        sq = secOption.getText().toString();
+        tq = thirdOption.getText().toString();
+        forthq = fourthOption.getText().toString();
 
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-
-    private void next() {
-        if (option.equals(correct_option)) {
-            score = session.getInt(Constant.SCORES) + 1;
-
-        }
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(Constant.SCORES).child(session.getData(Constant.COURSE_ID)).child(session.getData(Constant.TEST_ID)).child(Constant.removedot(session.getData(Constant.EMAIL)));
-
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    databaseReference.child(Constant.SCORES).setValue(score);
-
+        if (!question.isEmpty() && !fq.isEmpty() && !sq.isEmpty()) {
+            if (tq.isEmpty() || forthq.isEmpty()) {
+                if (option.equals("3")) {
+                    Toast.makeText(activity, "Please Select Correct option", Toast.LENGTH_SHORT).show();
+                } else if (option.equals("4")) {
+                    Toast.makeText(activity, "Please Select Correct option", Toast.LENGTH_SHORT).show();
                 } else {
+                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(Constant.QUESTIONS).child(session.getData(Constant.COURSE_ID)).child(session.getData(Constant.TEST_ID)).child(session.getInt(Constant.QUESTION_COUNT) + "");
                     Map<String, Object> map = new HashMap<>();
-                    map.put(Constant.SCORES, score + "");
-                    map.put(Constant.EMAIL, Constant.removedot(session.getData(Constant.EMAIL)));
-                    databaseReference.updateChildren(map);
+                    map.put(Constant.EMAIL, session.getData(Constant.EMAIL));
+                    map.put(Constant.COURSE_ID, session.getData(Constant.COURSE_ID));
+                    map.put(Constant.TEST_ID, session.getData(Constant.TEST_ID));
+                    map.put(Constant.QUESTION_ID, session.getInt(Constant.QUESTION_COUNT));
+                    map.put(Constant.QUESTION, question);
+                    map.put(Constant.OPTION_1, fq);
+                    map.put(Constant.OPTION_2, sq);
+                    map.put(Constant.OPTION_3, tq);
+                    map.put(Constant.OPTION_4, forthq);
+                    map.put(Constant.CORRECT_OPTION, option);
+                    databaseReference.updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            session.setInt(Constant.QUESTION_COUNT, session.getInt(Constant.QUESTION_COUNT) + 1);
+                            Toast.makeText(activity, "Question Added", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(activity, AddQuestionActivity.class);
+                            startActivity(intent);
 
+                        }
+                    });
                 }
-
-                session.setInt(Constant.QUESTION_COUNT, session.getInt(Constant.QUESTION_COUNT) + 1);
-                session.setInt(Constant.SCORES, score + session.getInt(Constant.SCORES));
-                Intent intent = new Intent(activity, QuestionViewActivity.class);
-                startActivity(intent);
-                finish();
             }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-
+        } else {
+            Toast.makeText(activity, "Please provide answers", Toast.LENGTH_SHORT).show();
+        }
     }
 }

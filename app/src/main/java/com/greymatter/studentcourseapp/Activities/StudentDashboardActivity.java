@@ -55,6 +55,7 @@ public class StudentDashboardActivity extends AppCompatActivity implements Popup
 
         recycler_view = findViewById(R.id.recycler_view);
         btnViewCource = findViewById(R.id.btnViewCource);
+        upCommingTest = findViewById(R.id.upcomming_test);
         imgMenu = findViewById(R.id.imgMenu);
 
 
@@ -67,6 +68,15 @@ public class StudentDashboardActivity extends AppCompatActivity implements Popup
 
             }
         });
+        upCommingTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(activity, UpcomingExamActivity.class);
+                startActivity(intent);
+
+            }
+        });
+
 
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity);

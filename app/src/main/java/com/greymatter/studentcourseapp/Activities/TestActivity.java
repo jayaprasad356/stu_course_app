@@ -63,14 +63,14 @@ public class TestActivity extends AppCompatActivity {
     }
 
     private void loadTestCards() {
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(Constant.TESTS).child(session.getData(Constant.COURSE_ID));
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(Constant.TESTS);
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()){
                     FirebaseRecyclerOptions<Test> options
                             = new FirebaseRecyclerOptions.Builder<Test>()
-                            .setQuery(databaseReference, Test.class)
+                            .setQuery(databaseReference.orderByChild(Constant.COURSE_ID).equalTo(session.getData(Constant.COURSE_ID)), Test.class)
                             .build();
                     testAdapter = new TestAdapter(options, activity,"professor");
                     recyclerView.setAdapter(testAdapter);

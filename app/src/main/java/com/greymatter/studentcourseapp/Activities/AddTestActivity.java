@@ -134,7 +134,7 @@ public class AddTestActivity extends AppCompatActivity implements SlideDatePicke
         enddatee=tvEndDate.getText().toString().trim();
         if (!title.isEmpty() && !description.isEmpty() && !starttime.isEmpty() && !endtime.isEmpty()&& !startdatee.isEmpty() && !enddatee.isEmpty()){
             String currentTime = System.currentTimeMillis()/1000 + "";
-            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(Constant.TESTS).child(session.getData(Constant.COURSE_ID)).child(currentTime);
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(Constant.TESTS).child(currentTime);
             Map<String, Object> map = new HashMap<>();
             map.put(Constant.EMAIL, session.getData(Constant.EMAIL));
             map.put(Constant.NAME, title);

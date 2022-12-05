@@ -124,7 +124,7 @@
                 android:id="@+id/btnScore"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="View Score"
+                android:text="Scores"
                 android:layout_alignParentEnd="true"
                 android:visibility="gone"
                 android:backgroundTint="@color/primary_color"/>

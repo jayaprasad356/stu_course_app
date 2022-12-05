@@ -8,8 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,10 +20,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.greymatter.studentcourseapp.Activities.AddQuestionActivity;
-import com.greymatter.studentcourseapp.Activities.AddTestActivity;
 import com.greymatter.studentcourseapp.Activities.EditQuestionActivity;
 import com.greymatter.studentcourseapp.Activities.QuestionViewActivity;
 import com.greymatter.studentcourseapp.Activities.ViewScoreActivity;
@@ -32,45 +29,43 @@ import com.greymatter.studentcourseapp.Model.Test;
 import com.greymatter.studentcourseapp.R;
 import com.greymatter.studentcourseapp.Session;
 
+import java.util.ArrayList;
 
-public class TestAdapter extends FirebaseRecyclerAdapter<Test, TestAdapter.ViewHolder> {
+
+public class upcomingExamAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     Activity activity;
     Session session;
     String type;
+    ArrayList<Test> tests;
 
-    public TestAdapter(FirebaseRecyclerOptions<Test> options, Activity activity, String type) {
-        super(options);
+    public upcomingExamAdapter(ArrayList<Test> tests, Activity activity, String type) {
         this.activity = activity;
         this.type = type;
+        this.tests = tests;
+
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View listItem = layoutInflater.inflate(R.layout.test_views, parent, false);
-        return new ViewHolder(listItem);
-
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(activity).inflate(R.layout.test_views, parent, false);
+        return new ViewHolder(view);
     }
 
 
     @Override
-    protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull Test model) {
+    public int getItemCount() {
+        return tests.size();
+    }
+
+
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holderParent, int position) {
+        final ViewHolder holder = (ViewHolder) holderParent;
+        final Test model = tests.get(position);
         session = new Session(activity);
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.child(Constant.QUESTIONS).child(session.getData(Constant.COURSE_ID)).child(model.getTest_id()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                int total = (int) snapshot.getChildrenCount();
-                holder.noOfQuestion.setText("No. of Questions = " + total + "");
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
         if (type.equals("professor")) {
             holder.btnDelete.setVisibility(View.VISIBLE);
             holder.btnScore.setVisibility(View.VISIBLE);
@@ -100,56 +95,40 @@ public class TestAdapter extends FirebaseRecyclerAdapter<Test, TestAdapter.ViewH
                 session.setInt(Constant.SCORES, 0);
             }
         });
-        holder.btnDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(Constant.TESTS).child(model.getTest_id());
-                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (snapshot.exists()) {
-                            databaseReference.removeValue();
-
-                        }
-
+        holder.btnDelete.setOnClickListener(view -> {
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(Constant.TESTS).child(model.getTest_id());
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        databaseReference.removeValue();
                     }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
+                }
+            });
 
-                    }
-                });
-
-
-            }
         });
-        holder.btnScore.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(activity, ViewScoreActivity.class);
-                activity.startActivity(intent);
-                session.setData(Constant.TEST_ID, model.getTest_id());
-
-            }
+        holder.btnScore.setOnClickListener(view -> {
+            Intent intent = new Intent(activity, ViewScoreActivity.class);
+            activity.startActivity(intent);
+            session.setData(Constant.TEST_ID, model.getTest_id());
         });
-        holder.btnEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(activity, EditQuestionActivity.class);
-                session.setInt(Constant.QUESTION_COUNT, 1);
-                session.setData(Constant.TEST_ID, model.getTest_id());
-                session.setData(Constant.COURSE_ID, model.getCourse_id());
-                activity.startActivity(intent);
-            }
+        holder.btnEdit.setOnClickListener(view -> {
+            Intent intent = new Intent(activity, EditQuestionActivity.class);
+            session.setInt(Constant.QUESTION_COUNT, 1);
+            session.setData(Constant.TEST_ID, model.getTest_id());
+            session.setData(Constant.COURSE_ID, model.getCourse_id());
+            activity.startActivity(intent);
         });
     }
 
-
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView title, description, noOfQuestion, startDate, startTime, endDate, endTime;
         Button btnDelete, btnStart, btnScore, btnEdit;
-
-        public ViewHolder(View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
             this.title = itemView.findViewById(R.id.title);
             this.description = itemView.findViewById(R.id.description);
@@ -162,7 +141,6 @@ public class TestAdapter extends FirebaseRecyclerAdapter<Test, TestAdapter.ViewH
             this.btnStart = itemView.findViewById(R.id.btnStart);
             this.btnScore = itemView.findViewById(R.id.btnScore);
             this.btnEdit = itemView.findViewById(R.id.btnEdit);
-
         }
     }
 }

@@ -17,6 +17,9 @@
         android:theme="@style/Theme.StudentCourseApp"
         tools:targetApi="31">
         <activity
+            android:name=".Activities.UpcomingExamActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activities.UpCommingTestActivity"
             android:exported="false">
             <meta-data
