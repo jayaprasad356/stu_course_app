@@ -82,7 +82,7 @@ public class ProfessorActivity extends AppCompatActivity implements PopupMenu.On
 
             FirebaseRecyclerOptions<Course> options
                     = new FirebaseRecyclerOptions.Builder<Course>()
-                    .setQuery(FirebaseDatabase.getInstance().getReference().child(Constant.COURSES), Course.class)
+                    .setQuery(FirebaseDatabase.getInstance().getReference().child(Constant.COURSES).orderByChild(Constant.EMAIL).equalTo(session.getData(Constant.EMAIL)), Course.class)
                     .build();
             coursesAdapter = new CoursesAdapter(options, activity);
             recyclerView.setAdapter(coursesAdapter);

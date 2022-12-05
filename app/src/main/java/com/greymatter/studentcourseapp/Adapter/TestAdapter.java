@@ -20,6 +20,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.greymatter.studentcourseapp.Activities.AddTestActivity;
 import com.greymatter.studentcourseapp.Activities.QuestionViewActivity;
@@ -36,7 +37,7 @@ public class TestAdapter extends FirebaseRecyclerAdapter<Test, TestAdapter.ViewH
     Session session;
     String type;
 
-    public TestAdapter(FirebaseRecyclerOptions<Test> options, Activity activity,String type) {
+    public TestAdapter(FirebaseRecyclerOptions<Test> options, Activity activity, String type) {
         super(options);
         this.activity = activity;
         this.type = type;
@@ -52,8 +53,6 @@ public class TestAdapter extends FirebaseRecyclerAdapter<Test, TestAdapter.ViewH
     }
 
 
-
-
     @Override
     protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull Test model) {
         session = new Session(activity);
@@ -61,8 +60,8 @@ public class TestAdapter extends FirebaseRecyclerAdapter<Test, TestAdapter.ViewH
         databaseReference.child(Constant.QUESTIONS).child(session.getData(Constant.COURSE_ID)).child(model.getTest_id()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                int total = (int)snapshot.getChildrenCount();
-                holder.noOfQuestion.setText("No. of Questions = "+total + "");
+                int total = (int) snapshot.getChildrenCount();
+                holder.noOfQuestion.setText("No. of Questions = " + total + "");
             }
 
             @Override
@@ -70,12 +69,12 @@ public class TestAdapter extends FirebaseRecyclerAdapter<Test, TestAdapter.ViewH
 
             }
         });
-        if (type.equals("professor")){
+        if (type.equals("professor")) {
             holder.btnDelete.setVisibility(View.VISIBLE);
             holder.btnScore.setVisibility(View.VISIBLE);
-        }else {
-            String currentTime = System.currentTimeMillis()/1000 + "";
-            if (Long.parseLong(model.getStart_timestamp()) <= Long.parseLong(currentTime) && Long.parseLong(model.getEnd_timestamp()) >= Long.parseLong(currentTime) ){
+        } else {
+            String currentTime = System.currentTimeMillis() / 1000 + "";
+            if (Long.parseLong(model.getStart_timestamp()) <= Long.parseLong(currentTime) && Long.parseLong(model.getEnd_timestamp()) >= Long.parseLong(currentTime)) {
                 holder.btnStart.setVisibility(View.VISIBLE);
 
             }
@@ -93,17 +92,31 @@ public class TestAdapter extends FirebaseRecyclerAdapter<Test, TestAdapter.ViewH
             public void onClick(View view) {
                 Intent intent = new Intent(activity, QuestionViewActivity.class);
                 activity.startActivity(intent);
-                session.setInt(Constant.QUESTION_COUNT,1);
-                session.setData(Constant.TEST_ID,model.getTest_id());
-                session.setInt(Constant.SCORES,0);
+                session.setInt(Constant.QUESTION_COUNT, 1);
+                session.setData(Constant.TEST_ID, model.getTest_id());
+                session.setInt(Constant.SCORES, 0);
             }
         });
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(Constant.TESTS).child(model.getTest_id());
-                databaseReference.removeValue();
-                Toast.makeText(activity, "Test Deleted Successfully", Toast.LENGTH_SHORT).show();
+                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(Constant.TESTS).child(model.getCourse_id()).child(model.getTest_id());
+                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            databaseReference.removeValue();
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
 
             }
         });
@@ -112,7 +125,7 @@ public class TestAdapter extends FirebaseRecyclerAdapter<Test, TestAdapter.ViewH
             public void onClick(View view) {
                 Intent intent = new Intent(activity, ViewScoreActivity.class);
                 activity.startActivity(intent);
-                session.setData(Constant.TEST_ID,model.getTest_id());
+                session.setData(Constant.TEST_ID, model.getTest_id());
 
             }
         });
@@ -121,7 +134,7 @@ public class TestAdapter extends FirebaseRecyclerAdapter<Test, TestAdapter.ViewH
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView title, description, noOfQuestion, startDate, startTime, endDate, endTime;
-        Button btnDelete,btnStart,btnScore;
+        Button btnDelete, btnStart, btnScore;
 
         public ViewHolder(View itemView) {
             super(itemView);

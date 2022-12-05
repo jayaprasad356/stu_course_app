@@ -30,11 +30,11 @@ import java.util.Map;
 
 public class AddQuestionActivity extends AppCompatActivity {
     Button nextQuestion, finish;
-    EditText firstOption, secOption, thirdOption, fourthOption,Ques;
+    EditText firstOption, secOption, thirdOption, fourthOption, Ques;
     TextView tvQuesNo;
     RadioGroup radioGroup;
     String option;
-    String text,question,fq,sq,tq,forthq;
+    String text, question, fq, sq, tq, forthq;
     Activity activity;
     Session session;
 
@@ -49,7 +49,7 @@ public class AddQuestionActivity extends AppCompatActivity {
         firstOption = findViewById(R.id.et_first);
         secOption = findViewById(R.id.et_second);
         thirdOption = findViewById(R.id.et_third);
-        Ques=findViewById(R.id.edQuestion);
+        Ques = findViewById(R.id.edQuestion);
         fourthOption = findViewById(R.id.et_four);
         activity = AddQuestionActivity.this;
         session = new Session(activity);
@@ -73,7 +73,7 @@ public class AddQuestionActivity extends AppCompatActivity {
         });
 
         finish.setOnClickListener(view -> {
-            Intent intent = new Intent(activity,ProfessorActivity.class);
+            Intent intent = new Intent(activity, ProfessorActivity.class);
             startActivity(intent);
             finish();
 
@@ -104,43 +104,51 @@ public class AddQuestionActivity extends AppCompatActivity {
                 }
 
 
-
             }
         });
     }
+
     private void savedata() {
-        question=Ques.getText().toString();
-        fq=firstOption.getText().toString();
-        sq=secOption.getText().toString();
-        tq=thirdOption.getText().toString();
-        forthq=fourthOption.getText().toString();
+        question = Ques.getText().toString();
+        fq = firstOption.getText().toString();
+        sq = secOption.getText().toString();
+        tq = thirdOption.getText().toString();
+        forthq = fourthOption.getText().toString();
 
-        if (!question.isEmpty() && !fq.isEmpty() && !sq.isEmpty() && !tq.isEmpty() && !forthq.isEmpty()){
-            String currentTime = System.currentTimeMillis()/1000 + "";
-            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(Constant.QUESTIONS).child(session.getData(Constant.COURSE_ID)).child(session.getData(Constant.TEST_ID)).child(session.getInt(Constant.QUESTION_COUNT)+"");
-            Map<String, Object> map = new HashMap<>();
-            map.put(Constant.EMAIL, session.getData(Constant.EMAIL));
-            map.put(Constant.COURSE_ID, session.getData(Constant.COURSE_ID));
-            map.put(Constant.TEST_ID, session.getData(Constant.TEST_ID));
-            map.put(Constant.QUESTION_ID, session.getInt(Constant.QUESTION_COUNT));
-            map.put(Constant.QUESTION, question);
-            map.put(Constant.OPTION_1, fq);
-            map.put(Constant.OPTION_2, sq);
-            map.put(Constant.OPTION_3, tq);
-            map.put(Constant.OPTION_4, forthq);
-            map.put(Constant.CORRECT_OPTION, option);
-            databaseReference.updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    session.setInt(Constant.QUESTION_COUNT,session.getInt(Constant.QUESTION_COUNT) + 1);
-                    Toast.makeText(AddQuestionActivity.this,"Question Added",Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(activity, AddQuestionActivity.class);
-                    startActivity(intent);
+        if (!question.isEmpty() && !fq.isEmpty() && !sq.isEmpty()) {
+            if (tq.isEmpty() || forthq.isEmpty()) {
+                if (option == "3") {
+                    Toast.makeText(activity, "Please Select Correct option", Toast.LENGTH_SHORT).show();
+                } else if (option == "4") {
+                    Toast.makeText(activity, "Please Select Correct option", Toast.LENGTH_SHORT).show();
+                } else {
+                    String currentTime = System.currentTimeMillis() / 1000 + "";
+                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(Constant.QUESTIONS).child(session.getData(Constant.COURSE_ID)).child(session.getData(Constant.TEST_ID)).child(session.getInt(Constant.QUESTION_COUNT) + "");
+                    Map<String, Object> map = new HashMap<>();
+                    map.put(Constant.EMAIL, session.getData(Constant.EMAIL));
+                    map.put(Constant.COURSE_ID, session.getData(Constant.COURSE_ID));
+                    map.put(Constant.TEST_ID, session.getData(Constant.TEST_ID));
+                    map.put(Constant.QUESTION_ID, session.getInt(Constant.QUESTION_COUNT));
+                    map.put(Constant.QUESTION, question);
+                    map.put(Constant.OPTION_1, fq);
+                    map.put(Constant.OPTION_2, sq);
+                    map.put(Constant.OPTION_3, tq);
+                    map.put(Constant.OPTION_4, forthq);
+                    map.put(Constant.CORRECT_OPTION, option);
+                    databaseReference.updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            session.setInt(Constant.QUESTION_COUNT, session.getInt(Constant.QUESTION_COUNT) + 1);
+                            Toast.makeText(AddQuestionActivity.this, "Question Added", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(activity, AddQuestionActivity.class);
+                            startActivity(intent);
 
+                        }
+                    });
                 }
-            });
-
-
+            }
+        } else {
+            Toast.makeText(activity, "Please provide answers", Toast.LENGTH_SHORT).show();
         }
     }
 
