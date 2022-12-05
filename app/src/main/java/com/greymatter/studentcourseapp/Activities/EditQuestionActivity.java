@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,6 +38,7 @@ public class EditQuestionActivity extends AppCompatActivity {
     String option, correct_option;
     String text, question, fq, sq, tq, forthq;
     Activity activity;
+    RadioButton r1,r2,r3,r4;
     ProgressDisplay progressDisplay;
     int score;
 
@@ -54,6 +56,7 @@ public class EditQuestionActivity extends AppCompatActivity {
         thirdOption = findViewById(R.id.et_third);
         Ques = findViewById(R.id.edQuestion);
         fourthOption = findViewById(R.id.et_four);
+        r1=findViewById(R.id.first_option);
         activity = EditQuestionActivity.this;
         session = new Session(activity);
         progressDisplay = new ProgressDisplay(activity);
@@ -98,6 +101,9 @@ public class EditQuestionActivity extends AppCompatActivity {
                 if (snapshot.exists()) {
                     Question question = snapshot.getValue(Question.class);
                     assert question != null;
+                    if (question.getCorrect_option().equals("1")){
+                        r1.setChecked(true);
+                    }
                     correct_option = question.getCorrect_option();
                     Ques.setText(question.getQuestion());
                     firstOption.setText(question.getOption_1());
